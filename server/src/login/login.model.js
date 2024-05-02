@@ -9,6 +9,7 @@ module.exports = {
       salt: salt,
     });
   },
+
   //login verification
   retrievePW(email) {
     return knex(LOGIN_TABLE).select("hashed_password").where("email", email);

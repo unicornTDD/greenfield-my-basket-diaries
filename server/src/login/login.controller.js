@@ -19,6 +19,7 @@ module.exports = {
     // const createUser = await
     res.status(201).send();
   },
+
   async verifyUser(req, res) {
     //get the entered password and email
     const email = req.body.email;
