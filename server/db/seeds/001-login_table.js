@@ -6,6 +6,7 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("diary").del();
   await knex("login").del();
+  await knex.raw('ALTER SEQUENCE login_id_seq RESTART WITH 1');
   await knex("login").insert([
     {
       display_name: "Ter",
