@@ -85,8 +85,8 @@ function TablePaginationActions(props) {
 export default function PaginationTable() {
   // USE STATE
   const [entries, setEntries] = useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -117,8 +117,9 @@ export default function PaginationTable() {
 
   // RETURN
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
       <Table
+        stickyHeader
         sx={{ minWidth: 500, zIndex: 999 }}
         aria-label="custom pagination table"
       >
