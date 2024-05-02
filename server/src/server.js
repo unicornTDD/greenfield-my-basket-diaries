@@ -9,8 +9,10 @@ const diaryController = require("./diary/diary.controller");
 const loginController = require("./login/login.controller");
 
 //DIARY GET ENDPOINTS
-//gets all data from the diary table
 app.get("/diaries", diaryController.getAll);
+
+//DIARY DELETE endpoint
+app.delete("/diaries/:id", diaryController.deleteDiary);
 
 //LOGIN ENDPOINTS
 app.post("/create_user", loginController.createUser);
