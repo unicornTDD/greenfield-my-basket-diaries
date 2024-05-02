@@ -10,14 +10,14 @@ import "@fontsource/roboto/700.css";
 // LOCAL COMPONENTS
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { Divider } from "@mui/material";
 
 function App() {
   return (
     <>
       {/* HEADER */}
       <Header />
+      <Divider sx={{ margin: 1 }} />
 
       {/* USER DATA */}
 
