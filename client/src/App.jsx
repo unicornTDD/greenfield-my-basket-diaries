@@ -3,6 +3,8 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -16,7 +18,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Green Field Project</h1>
+      <h1>Green Field Project {BASE_URL}</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
