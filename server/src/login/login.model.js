@@ -12,6 +12,8 @@ module.exports = {
 
   //login verification
   retrievePW(email) {
-    return knex(LOGIN_TABLE).select("hashed_password").where("email", email);
+    return knex(LOGIN_TABLE)
+      .select("hashed_password", "id")
+      .where("email", email);
   },
 };
