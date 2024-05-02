@@ -1,18 +1,13 @@
-import { Dropdown } from "@mui/base/Dropdown";
-import { MenuButton } from "@mui/base/MenuButton";
-import { Menu } from "@mui/base/Menu";
-import { MenuItem } from "@mui/base/MenuItem";
-
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import { CardHeader } from "@mui/material";
+import MenuSimple from "./Menu";
+import "./Header.css";
 
 const Header = () => {
-  return {
-    /* HEADER */
-  };
+  return (
+    <div className="header">
+      <h1>GREEN FIELD MY BASKET DIARY</h1>
+      <MenuSimple className="MenuSimple" />
+    </div>
+  );
 };
 
 export default Header;
