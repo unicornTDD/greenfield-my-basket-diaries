@@ -11,6 +11,11 @@ const diaryController = require("./diary/diary.controller");
 //gets all data from the diary table
 app.get("/diaries", diaryController.getAll);
 
+
+//diary DELETE endpoint
+//deletes a diary entry
+app.delete("/diaries/:id", diaryController.deleteDiary);
+
 app.listen(PORT, () => {
   console.log(`I am now waiting for incoming HTTP traffic on port ${PORT}!`);
 });
