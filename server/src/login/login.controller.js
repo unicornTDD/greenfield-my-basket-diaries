@@ -19,4 +19,21 @@ module.exports = {
     // const createUser = await
     res.status(201).send();
   },
+
+  async verifyUser(req, res) {
+    //get the entered password and email
+    const email = req.body.email;
+    const pw = req.body.password;
+    const requestPW = await loginModel.retrievePW(email);
+    const hash = requestPW[0]["hashed_password"];
+
+    //simple redirect logic, no pages are being locked right now
+    bcrypt.compare(pw, hash, function (err, result) {
+      if (result) {
+        res.redirect("/diaries");
+      } else {
+        res.status(401).send("Incorrect Password or Email, try again!");
+      }
+    });
+  },
 };

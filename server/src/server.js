@@ -16,6 +16,7 @@ app.delete("/diaries/:id", diaryController.deleteDiary);
 
 //LOGIN ENDPOINTS
 app.post("/create_user", loginController.createUser);
+app.post("/verify_user", loginController.verifyUser);
 
 app.listen(PORT, () => {
   console.log(`I am now waiting for incoming HTTP traffic on port ${PORT}!`);
