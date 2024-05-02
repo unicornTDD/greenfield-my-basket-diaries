@@ -24,12 +24,17 @@ module.exports = {
     //get the entered password and email
     const email = req.body.email;
     const pw = req.body.password;
-    const requestPW = await loginModel.retrievePW(email);
-    const hash = requestPW[0]["hashed_password"];
+    //verify
+    const requestUser = await loginModel.retrievePW(email);
+    const hash = requestUser[0]["hashed_password"];
+    const userId = requestUser[0]["id"];
 
     //simple redirect logic, no pages are being locked right now
     bcrypt.compare(pw, hash, function (err, result) {
       if (result) {
+        //for Authorization
+        req.session.user = userId;
+        req.session.authorized = true;
         res.redirect("/diaries");
       } else {
         res.status(401).send("Incorrect Password or Email, try again!");
