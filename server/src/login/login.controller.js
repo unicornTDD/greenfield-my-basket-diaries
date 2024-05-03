@@ -8,7 +8,7 @@ module.exports = {
     const { email, password } = req.body;
     const existingUser = await loginModel.findOne(email);
 
-    //validate email 
+    //validate email
     if (!validator.isEmail(email)) {
       return res.status(400).json({ error: "Invalid Email Format" });
     }
@@ -33,24 +33,35 @@ module.exports = {
   },
 
   async verifyUser(req, res) {
-    //get the entered password and email
-    const email = req.body.email;
-    const pw = req.body.password;
-    //verify
-    const requestUser = await loginModel.retrievePW(email);
-    const hash = requestUser[0]["hashed_password"];
-    const userId = requestUser[0]["id"];
+    const { email, password } = req.body;
+    let dbPassword = null;
+    let hash = "";
+    let userId = "";
 
-    //simple redirect logic, no pages are being locked right now
-    bcrypt.compare(pw, hash, function (err, result) {
-      if (result) {
-        //for Authorization
-        req.session.user = userId;
-        req.session.authorized = true;
-        res.redirect("/diaries");
-      } else {
-        res.status(401).send("Incorrect Password or Email, try again!");
-      }
-    });
+    //validate if email format is correct
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ error: "Invalid Email Format" });
+    } else {
+      //retrive password
+      dbPassword = await loginModel.retrievePassword(email);
+      hash = dbPassword[0]["hashed_password"];
+      userId = dbPassword[0]["id"];
+    }
+
+    //check if valid PW
+    try {
+      bcrypt.compare(password, hash, function (err, result) {
+        if (result) {
+          //for Authorization
+          req.session.user = userId;
+          req.session.authorized = true;
+          res.status(200).send({ message: "Login succesfull!" });
+        } else {
+          res.status(401).send("Incorrect Password or Email, try again!");
+        }
+      });
+    } catch (error) {
+      res.status(500).json(error);
+    }
   },
 };

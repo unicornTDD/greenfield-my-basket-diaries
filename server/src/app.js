@@ -19,7 +19,16 @@ app.post("/create_user", loginController.createUser);
 app.post("/verify_user", loginController.verifyUser);
 
 //DIARY ENDPOINTS
-app.get("/diaries", util.auth, diaryController.getAll);
-app.delete("/diaries/:id", util.auth, diaryController.deleteDiary);
+app.get("/diaries", auth, diaryController.getAll);
+app.delete("/diaries/:id", auth, diaryController.deleteDiary);
+
+//MIDDLEWARE FOR AUTHENTICATION
+function auth(req, res, next) {
+  if (req.session.authorized) {
+    next();
+  } else {
+    res.status(401).send("You are not logged-in!");
+  }
+}
 
 module.exports = app;
