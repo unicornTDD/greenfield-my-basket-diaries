@@ -18,9 +18,8 @@ const loginController = require("./login/login.controller");
 app.post("/create_user", loginController.createUser);
 app.post("/verify_user", loginController.verifyUser);
 
-//DIARY GET ENDPOINTS
+//DIARY ENDPOINTS
 app.get("/diaries", util.auth, diaryController.getAll);
-//DIARY DELETE endpoint
 app.delete("/diaries/:id", util.auth, diaryController.deleteDiary);
 
 module.exports = app;
