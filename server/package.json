@@ -4,9 +4,9 @@
   "description": "serverside logic",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/server.js",
-    "express-dev": "nodemon ./src/server.js",
+    "test": "jest --config=./jest.config.js",
+    "start": "node ./src/index.js",
+    "express-dev": "nodemon ./src/index.js",
     "migrate-latest": "npx knex migrate:latest",
     "migrate-down": "npx knex migrate:down",
     "seed-data": "npx knex seed:run",
@@ -26,12 +26,17 @@
     "knex": "^3.1.0",
     "lodash": "^4.17.21",
     "nodemon": "^3.1.0",
-    "pg": "^8.11.5"
+    "pg": "^8.11.5",
+    "validator": "^13.11.0"
   },
   "author": "TEAM UNICORN (TER,DEANA,DOMINIK)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/unicornTDD/greenfield-my-basket-diaries/issues"
   },
-  "homepage": "https://github.com/unicornTDD/greenfield-my-basket-diaries#readme"
+  "homepage": "https://github.com/unicornTDD/greenfield-my-basket-diaries#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
 }
