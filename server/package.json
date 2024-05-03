@@ -4,7 +4,7 @@
   "description": "serverside logic",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test",
+    "test": "jest",
     "start": "node ./src/server.js",
     "express-dev": "nodemon ./src/server.js",
     "migrate-latest": "npx knex migrate:latest",
@@ -19,15 +19,12 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "knex": "^3.1.0",
     "lodash": "^4.17.21",
-    "mocha": "^6.2.0",
     "nodemon": "^3.1.0",
     "pg": "^8.11.5"
   },
@@ -36,5 +33,9 @@
   "bugs": {
     "url": "https://github.com/unicornTDD/greenfield-my-basket-diaries/issues"
   },
-  "homepage": "https://github.com/unicornTDD/greenfield-my-basket-diaries#readme"
+  "homepage": "https://github.com/unicornTDD/greenfield-my-basket-diaries#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
 }
