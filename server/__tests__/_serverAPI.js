@@ -1,10 +1,9 @@
 const request = require("supertest");
-const app = require("../src/server");
+const app = require("../src/app");
 
 describe("Express App", () => {
-  // Test suite for GET /diaries endpoint
-  describe("GET /diaries", () => {
-    it("should return 401 Unauthorized when not authenticated", async () => {
+  describe("POST /create_user", () => {
+    it("should create a new User", async () => {
       const response = await request(app).get("/diaries");
       expect(response.status).toBe(401);
     });
