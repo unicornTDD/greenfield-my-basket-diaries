@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   FormControl,
   IconButton,
   InputAdornment,
@@ -32,6 +33,7 @@ function Login() {
   // STATE
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showRegister, setShowRegister] = useState(false);
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -73,7 +75,12 @@ function Login() {
         backgroundSize: "cover",
       }}
     >
-      <Container maxWidth="xs">
+      <Container
+        maxWidth="xs"
+        sx={{
+          transition: "ease-in-out 0.2s",
+        }}
+      >
         <Form method="post">
           <Paper
             sx={{
@@ -115,9 +122,66 @@ function Login() {
               />
             </FormControl>
 
-            <Button variant="contained" onClick={handleVerifyUser}>
+            <Button
+              variant="contained"
+              onClick={handleVerifyUser}
+              sx={{ mt: 2 }}
+            >
               Login
             </Button>
+
+            <Button
+              variant="outlined"
+              onClick={() => setShowRegister((show) => !show)}
+            >
+              Create new account
+            </Button>
+
+            {showRegister && (
+              <>
+                <Divider sx={{ margin: 2 }} />
+
+                <Typography variant="h6">Create new account</Typography>
+                <TextField
+                  id="outlined-basic"
+                  label="Email"
+                  variant="outlined"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <FormControl sx={{ width: "100%" }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? "text" : "password"}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </FormControl>
+
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  onClick={handleVerifyUser}
+                  sx={{ mt: 2 }}
+                >
+                  Register
+                </Button>
+              </>
+            )}
           </Paper>
         </Form>
       </Container>
