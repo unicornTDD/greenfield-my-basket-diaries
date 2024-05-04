@@ -82,11 +82,11 @@ function TablePaginationActions(props) {
   );
 }
 
-export default function PaginationTable() {
+export default function PaginationTable({ isNewEntry }) {
   // USE STATE
   const [entries, setEntries] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -95,7 +95,8 @@ export default function PaginationTable() {
   // USE EFFECT
   useEffect(() => {
     handleReadData();
-  }, []);
+    
+  }, [isNewEntry]);
 
   // HANDLERS
   const handleReadData = async () => {
@@ -105,19 +106,6 @@ export default function PaginationTable() {
 
     setEntries([...data]);
   };
-
-  // const handleFetchImageUrl = async (imageUrl) => {
-  //   if (!imageUrl) {
-  //     return;
-  //   }
-
-  //   const res = await fetch(imageUrl);
-  //   const imageBlob = await res.blob();
-  //   const imageObjectURL = URL.createObjectURL(imageBlob);
-  //   console.log(imageObjectURL);
-
-  //   return imageObjectURL;
-  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -188,7 +176,7 @@ export default function PaginationTable() {
             </StyledTableRow>
           )}
         </TableBody>
-        <TableFooter>
+        {/* <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
@@ -209,7 +197,7 @@ export default function PaginationTable() {
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
-        </TableFooter>
+        </TableFooter> */}
       </Table>
     </TableContainer>
   );
