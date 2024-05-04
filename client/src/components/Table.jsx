@@ -130,7 +130,7 @@ export default function PaginationTable() {
 
   // RETURN
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
+    <TableContainer component={Paper} sx={{ maxHeight: 1000 }}>
       <Table
         stickyHeader
         sx={{ minWidth: 500, zIndex: 999 }}
@@ -175,7 +175,10 @@ export default function PaginationTable() {
                 {row.food_description}
               </StyledTableCell>
               <StyledTableCell style={{ width: 160 }} align="left">
-                <img src={row.image_url} />
+                <img
+                  src={row.image_url}
+                  style={{ width: 200, height: 200, objectFit: "cover" }}
+                />
               </StyledTableCell>
             </StyledTableRow>
           ))}
