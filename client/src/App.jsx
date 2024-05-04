@@ -11,6 +11,7 @@ import "@fontsource/roboto/700.css";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import { Divider } from "@mui/material";
+import FileUpload from "./components/FileUpload";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
       <Divider sx={{ margin: 1 }} />
 
       {/* USER DATA */}
+
+      {/* FILE UPLOAD */}
+      <FileUpload />
 
       {/* CONTENT */}
       <Dashboard />

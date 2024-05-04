@@ -33,8 +33,10 @@ function Login() {
   // STATE
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showRegister, setShowRegister] = useState(false);
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
+  const [showRegister, setShowRegister] = useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
   // HANDLER FUNCTIONS
@@ -51,8 +53,25 @@ function Login() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        password,
+        email: email,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+    if (data) {
+      navigate("/");
+    }
+  };
+
+  const handleCreateUser = async () => {
+    const response = await fetch(`${BASE_URL}/create_user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: newEmail,
+        password: newPassword,
       }),
     });
     const data = await response.json();
@@ -146,7 +165,7 @@ function Login() {
                   id="outlined-basic"
                   label="Email"
                   variant="outlined"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setNewEmail(e.target.value)}
                 />
                 <FormControl sx={{ width: "100%" }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
@@ -168,14 +187,14 @@ function Login() {
                       </InputAdornment>
                     }
                     label="Password"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setNewPassword(e.target.value)}
                   />
                 </FormControl>
 
                 <Button
                   color="secondary"
                   variant="contained"
-                  onClick={handleVerifyUser}
+                  onClick={handleCreateUser}
                   sx={{ mt: 2 }}
                 >
                   Register
