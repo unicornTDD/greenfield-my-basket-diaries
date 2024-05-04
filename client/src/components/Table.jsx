@@ -106,6 +106,19 @@ export default function PaginationTable() {
     setEntries([...data]);
   };
 
+  // const handleFetchImageUrl = async (imageUrl) => {
+  //   if (!imageUrl) {
+  //     return;
+  //   }
+
+  //   const res = await fetch(imageUrl);
+  //   const imageBlob = await res.blob();
+  //   const imageObjectURL = URL.createObjectURL(imageBlob);
+  //   console.log(imageObjectURL);
+
+  //   return imageObjectURL;
+  // };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -162,7 +175,7 @@ export default function PaginationTable() {
                 {row.food_description}
               </StyledTableCell>
               <StyledTableCell style={{ width: 160 }} align="left">
-                {row.image_url}
+                <img src={row.image_url} />
               </StyledTableCell>
             </StyledTableRow>
           ))}
