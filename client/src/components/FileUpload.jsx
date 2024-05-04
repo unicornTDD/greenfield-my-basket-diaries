@@ -6,20 +6,13 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 // FIREBASE
 import "./FileUpload.css";
 import { storage } from "../config/firebase";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  listAll,
-  getDownloadURL,
-} from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // @MUI
 import { Box } from "@mui/system";
-import { Input, TextField, TextareaAutosize, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import DinnerDiningIcon from "@mui/icons-material/DinnerDining";
 import Button from "@mui/material/Button";
-import styled from "@emotion/styled";
 
 //built in firebase functions.
 //ref: create reference to the folder path on the cloud storage
@@ -27,7 +20,7 @@ import styled from "@emotion/styled";
 //listAll: list all items (objects) in the path folder specified
 //getDownloadURL: get the actual url that can be added to img src to display the image
 
-export default function FileUpload() {
+export default function FileUpload({ setIsNewEntry }) {
   // USE STATE
   const [previewImage, setPreviewImage] = useState(null);
   const [title, setTitle] = useState(null);
@@ -35,15 +28,10 @@ export default function FileUpload() {
 
   // FILE UPLOAD STATE
   const [fileUpload, setFileUpload] = useState(null);
-  const [imageList, setImageList] = useState([]);
   const [imageURL, setImageURL] = useState(null);
 
   // USE EFFECT
-
-  useEffect(() => {
-    listAllImages();
-  }, []);
-
+  // PREVIEW IMAGE
   useEffect(() => {
     if (!fileUpload) {
       setPreviewImage(null);
@@ -57,20 +45,16 @@ export default function FileUpload() {
   }, [fileUpload]);
 
   useEffect(() => {
-    console.log(title);
-    console.log(description);
-    console.log(fileUpload);
-    console.log(imageURL);
     if (imageURL) {
       uploadToDatabase();
+      setIsNewEntry((prev) => prev + 1);
     }
   }, [imageURL]);
 
   // HANDLER FUCNTION
   const storage = getStorage();
-  const imageListRef = ref(storage, "diaryEntries/");
 
-  // UPLOAD FIILE
+  // UPLOAD FILE TO FIREBASE
   const uploadFile = async () => {
     if (!fileUpload) return;
     const diaryEntriesFolderRef = ref(
@@ -79,17 +63,15 @@ export default function FileUpload() {
     );
     try {
       const snapshot = await uploadBytes(diaryEntriesFolderRef, fileUpload);
-      const downloadURL = await getDownloadURL(snapshot.ref);
-      console.log("Download URL", downloadURL);
-      setImageURL(downloadURL);
+      const firebaseURL = await getDownloadURL(snapshot.ref);
+      console.log("Download URL", firebaseURL);
+      setImageURL(firebaseURL);
     } catch (err) {
       console.error("image upload error!", err);
     }
   };
 
-  /**
-   * WAIT FOR ENDPOINT
-   */
+  // UPLOAD TO DATABASE
   const uploadToDatabase = async () => {
     const response = await fetch(`${BASE_URL}/diaries`, {
       method: "POST",
@@ -106,16 +88,6 @@ export default function FileUpload() {
     });
 
     console.log(response);
-  };
-
-  const listAllImages = async () => {
-    const imageListObj = await listAll(imageListRef);
-
-    const requests = imageListObj.items.map((item) => getDownloadURL(item));
-    const urls = await Promise.all(requests);
-    // console.log("listAll images from ref", imageListObj);
-    // console.log("requests", requests);
-    // console.log("urls", urls);
   };
 
   // RETURN

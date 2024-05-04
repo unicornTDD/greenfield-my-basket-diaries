@@ -40,6 +40,7 @@ app.post("/diaries", auth, diaryController.createDiary);
 app.patch("/diaries/:id", auth, diaryController.editDiary);
 app.delete("/diaries/:id", auth, diaryController.deleteDiary);
 
+
 //MIDDLEWARE FOR AUTHENTICATION
 function auth(req, res, next) {
   if (req.session.authorized) {

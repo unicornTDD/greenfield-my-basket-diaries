@@ -82,11 +82,11 @@ function TablePaginationActions(props) {
   );
 }
 
-export default function PaginationTable() {
+export default function PaginationTable({ isNewEntry }) {
   // USE STATE
   const [entries, setEntries] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -95,15 +95,17 @@ export default function PaginationTable() {
   // USE EFFECT
   useEffect(() => {
     handleReadData();
-  }, []);
+  }, [isNewEntry]);
 
   // HANDLERS
   const handleReadData = async () => {
     const resp = await fetch(`${BASE_URL}/diaries`, {credentials: 'include'});
     const data = await resp.json();
-    console.log(data);
+    const sortedDataDesc = data.sort((a, b) => {
+      return b.diary_id - a.diary_id;
+    });
 
-    setEntries([...data, ...data, ...data, ...data, ...data, ...data]);
+    setEntries([...sortedDataDesc]);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -117,7 +119,7 @@ export default function PaginationTable() {
 
   // RETURN
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
+    <TableContainer component={Paper} sx={{ maxHeight: 1000 }}>
       <Table
         stickyHeader
         sx={{ minWidth: 500, zIndex: 999 }}
@@ -134,6 +136,9 @@ export default function PaginationTable() {
             </TableCell>
             <TableCell sx={{ width: 40 }} align="left">
               Description
+            </TableCell>
+            <TableCell sx={{ width: 40 }} align="left">
+              Image
             </TableCell>
           </TableRow>
         </TableHead>
@@ -158,6 +163,12 @@ export default function PaginationTable() {
               <StyledTableCell style={{ width: 160 }} align="left">
                 {row.food_description}
               </StyledTableCell>
+              <StyledTableCell style={{ width: 160 }} align="left">
+                <img
+                  src={row.image_url}
+                  style={{ width: 200, height: 200, objectFit: "cover" }}
+                />
+              </StyledTableCell>
             </StyledTableRow>
           ))}
           {emptyRows > 0 && (
@@ -166,7 +177,7 @@ export default function PaginationTable() {
             </StyledTableRow>
           )}
         </TableBody>
-        <TableFooter>
+        {/* <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
@@ -187,7 +198,7 @@ export default function PaginationTable() {
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
-        </TableFooter>
+        </TableFooter> */}
       </Table>
     </TableContainer>
   );
