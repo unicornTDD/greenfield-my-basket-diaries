@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import PaginationTable from "./TablePaginationActions";
+import PaginationTable from "./Table";
 
 export default function Dashboard() {
   // RETURN

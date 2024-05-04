@@ -22,10 +22,11 @@ function App() {
 
       {/* USER DATA */}
 
+      {/* FILE UPLOAD */}
+      <FileUpload />
+
       {/* CONTENT */}
       <Dashboard />
-
-      <FileUpload />
     </>
   );
 }
