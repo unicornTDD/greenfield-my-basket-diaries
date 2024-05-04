@@ -49,7 +49,7 @@ function Login() {
   const handleVerifyUser = async () => {
     const response = await fetch(`${BASE_URL}/verify_user`, {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -60,14 +60,14 @@ function Login() {
     });
     const data = await response.json();
     if (data) {
-      navigate("/");
+      navigate("/diary");
     }
   };
 
   const handleCreateUser = async () => {
     const response = await fetch(`${BASE_URL}/create_user`, {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -78,7 +78,7 @@ function Login() {
     });
     const data = await response.json();
     if (data) {
-      navigate("/diary");
+      navigate("/");
     }
   };
 
