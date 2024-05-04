@@ -99,7 +99,7 @@ export default function PaginationTable({ isNewEntry }) {
 
   // HANDLERS
   const handleReadData = async () => {
-    const resp = await fetch(`${BASE_URL}/diaries`);
+    const resp = await fetch(`${BASE_URL}/diaries`, {credentials: 'include'});
     const data = await resp.json();
     const sortedDataDesc = data.sort((a, b) => {
       return b.diary_id - a.diary_id;
