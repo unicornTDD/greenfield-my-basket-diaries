@@ -99,7 +99,7 @@ export default function PaginationTable() {
 
   // HANDLERS
   const handleReadData = async () => {
-    const resp = await fetch(`${BASE_URL}/diaries`);
+    const resp = await fetch(`${BASE_URL}/diaries`, {credentials: 'include'});
     const data = await resp.json();
     console.log(data);
 

@@ -36,7 +36,7 @@ module.exports = {
     const { email, password } = req.body;
     let dbPassword = null;
     let hash = "";
-    let userId = "";
+    let user = "";
 
     //validate if email format is correct
     if (!validator.isEmail(email)) {
@@ -45,15 +45,15 @@ module.exports = {
       //retrive password
       dbPassword = await loginModel.retrievePassword(email);
       hash = dbPassword[0]["hashed_password"];
-      userId = dbPassword[0]["id"];
+      user = dbPassword[0]["id"];
     }
 
     //check if valid PW
     try {
       bcrypt.compare(password, hash, function (err, result) {
         if (result) {
-          //for Authorization
-          req.session.user = userId;
+          //set session tokens!
+          req.session.user = user;
           req.session.authorized = true;
           res.status(200).send({ message: "Login succesfull!" });
         } else {

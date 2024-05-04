@@ -1,14 +1,29 @@
+require("dotenv").config({ path: "./.env" });
 const express = require("express");
 const session = require("express-session");
-const util = require("./util/util");
 const cors = require("cors");
 
 const app = express();
 
 //MIDLEWARE
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FE_PATH, //add to RENDER as ENV  VARIABLE
+    credentials: true,
+  })
+);
 app.use(express.json());
-app.use(session({ secret: "Ter is never angry!" }));
+app.use(
+  session({
+    secret: process.env.SECRET, //ad to teh server env file
+    saveUninitialized: true,
+    resave: true,
+    cookie: {
+      httpOnly: true,
+      maxAge: 360000,
+    },
+  })
+);
 
 //MVC CONTROLERS
 const diaryController = require("./diary/diary.controller");
@@ -19,11 +34,11 @@ app.post("/create_user", loginController.createUser);
 app.post("/verify_user", loginController.verifyUser);
 
 //DIARY ENDPOINTS
-app.get("/diaries", diaryController.getAll);
-app.get("/diaries/:userID", diaryController.getDiarybyUserID)
-app.post("/diaries", diaryController.createDiary);
-app.patch("/diaries/:id", diaryController.editDiary);
-app.delete("/diaries/:id", diaryController.deleteDiary);
+app.get("/diaries", auth, diaryController.getAll);
+app.get("/diaries/:userID", auth, diaryController.getDiarybyUserID);
+app.post("/diaries", auth, diaryController.createDiary);
+app.patch("/diaries/:id", auth, diaryController.editDiary);
+app.delete("/diaries/:id", auth, diaryController.deleteDiary);
 
 //MIDDLEWARE FOR AUTHENTICATION
 function auth(req, res, next) {

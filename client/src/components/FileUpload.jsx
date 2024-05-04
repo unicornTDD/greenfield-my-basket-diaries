@@ -93,6 +93,7 @@ export default function FileUpload() {
   const uploadToDatabase = async () => {
     const response = await fetch(`${BASE_URL}/diaries`, {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
