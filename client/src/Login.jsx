@@ -92,7 +92,7 @@ function Login() {
       alignItems={"center"}
       flexDirection={"column"}
       sx={{
-        backgroundImage: "url('src/assets/unicorn.jpg')",
+        backgroundImage: "url('/src/assets/unicorn.jpg')",
         backgroundSize: "cover",
       }}
     >
