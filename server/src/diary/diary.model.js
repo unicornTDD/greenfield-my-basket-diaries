@@ -18,7 +18,11 @@ module.exports = {
       .into(DIARY_TABLE);
   },
 
+  getDiarybyUserID(userID){
+    return knex.select("*").where("user_id", userID).from(DIARY_TABLE)
+  },
+
   deleteDiary(deletedId) {
-    return knex("diary").where("diary_id", deletedId).del();
+    return knex(DIARY_TABLE).where("diary_id", deletedId).del();
   },
 };
