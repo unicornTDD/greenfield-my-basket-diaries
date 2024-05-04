@@ -95,16 +95,17 @@ export default function PaginationTable({ isNewEntry }) {
   // USE EFFECT
   useEffect(() => {
     handleReadData();
-    
   }, [isNewEntry]);
 
   // HANDLERS
   const handleReadData = async () => {
     const resp = await fetch(`${BASE_URL}/diaries`);
     const data = await resp.json();
-    console.log(data);
+    const sortedDataDesc = data.sort((a, b) => {
+      return b.diary_id - a.diary_id;
+    });
 
-    setEntries([...data]);
+    setEntries([...sortedDataDesc]);
   };
 
   const handleChangePage = (event, newPage) => {
