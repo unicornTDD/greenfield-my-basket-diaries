@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import UploadButton from "./UploadButton";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 // FIREBASE
 import "./FileUpload.css";
 import { storage } from "../config/firebase";
@@ -54,15 +56,15 @@ export default function FileUpload() {
     return () => URL.revokeObjectURL(objectUrl);
   }, [fileUpload]);
 
-  /**
-   * FOR LOGGING
-   */
   useEffect(() => {
     console.log(title);
     console.log(description);
     console.log(fileUpload);
     console.log(imageURL);
-  }, [title, description, fileUpload, imageURL]);
+    if (imageURL) {
+      uploadToDatabase();
+    }
+  }, [imageURL]);
 
   // HANDLER FUCNTION
   const storage = getStorage();
@@ -88,20 +90,21 @@ export default function FileUpload() {
   /**
    * WAIT FOR ENDPOINT
    */
-  const uploadToDatabase = () => {
-    const response = fetch("http://localhost:3001/diaries", {
+  const uploadToDatabase = async () => {
+    const response = await fetch(`${BASE_URL}/diaries`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: title,
-        description: description,
+        userID: 1,
+        foodTitle: title,
+        foodDescription: description,
         imageURL: imageURL,
       }),
     });
 
-    console.log(response.json());
+    console.log(response);
   };
 
   const listAllImages = async () => {
@@ -151,7 +154,6 @@ export default function FileUpload() {
           tabIndex={-1}
           onClick={async () => {
             await uploadFile();
-            await uploadToDatabase();
           }}
         >
           Upload File
