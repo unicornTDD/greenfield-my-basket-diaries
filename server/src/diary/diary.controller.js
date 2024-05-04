@@ -6,6 +6,12 @@ module.exports = {
     res.status(200).send(diaries);
   },
 
+  async getDiarybyUserID(req, res) {
+    const userID = req.params.userID;
+    const userDiaries = await diaryModel.getDiarybyUserID(userID);
+    res.status(200).send(userDiaries);
+  },
+
   async createDiary(req, res) {
     const { userID, foodTitle, foodDescription, imageURL } = req.body;
     await diaryModel.createDiary(userID, foodTitle, foodDescription, imageURL);
