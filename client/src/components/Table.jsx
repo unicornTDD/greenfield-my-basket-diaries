@@ -103,7 +103,7 @@ export default function PaginationTable() {
     const data = await resp.json();
     console.log(data);
 
-    setEntries([...data, ...data, ...data, ...data, ...data, ...data]);
+    setEntries([...data]);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -135,6 +135,9 @@ export default function PaginationTable() {
             <TableCell sx={{ width: 40 }} align="left">
               Description
             </TableCell>
+            <TableCell sx={{ width: 40 }} align="left">
+              Image
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -157,6 +160,9 @@ export default function PaginationTable() {
               </StyledTableCell>
               <StyledTableCell style={{ width: 160 }} align="left">
                 {row.food_description}
+              </StyledTableCell>
+              <StyledTableCell style={{ width: 160 }} align="left">
+                {row.image_url}
               </StyledTableCell>
             </StyledTableRow>
           ))}
