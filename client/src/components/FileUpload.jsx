@@ -95,9 +95,9 @@ export default function FileUpload() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title,
-        description,
-        imageURL,
+        title: title,
+        description: description,
+        imageURL: imageURL,
       }),
     });
 
