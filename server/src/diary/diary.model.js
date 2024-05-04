@@ -18,8 +18,12 @@ module.exports = {
       .into(DIARY_TABLE);
   },
 
-  getDiarybyUserID(userID){
-    return knex.select("*").where("user_id", userID).from(DIARY_TABLE)
+  editDiary(diaryID, foodTitle, foodDescription, imageURL) {
+    return knex(DIARY_TABLE).where({ diary_id: diaryID }).update({
+      food_title: foodTitle,
+      food_description: foodDescription,
+      image_url: imageURL,
+    });
   },
 
   deleteDiary(deletedId) {
