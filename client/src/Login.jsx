@@ -60,7 +60,7 @@ function Login() {
     });
     const data = await response.json();
     if (data) {
-      navigate("/");
+      navigate("/diary");
     }
   };
 
@@ -78,7 +78,7 @@ function Login() {
     });
     const data = await response.json();
     if (data) {
-      navigate("/diary");
+      navigate("/");
     }
   };
 
