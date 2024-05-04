@@ -9,21 +9,21 @@ exports.seed = async function (knex) {
   await knex("diary").insert([
     {
       user_id: 1,
-      date_created: "2024-02-25 07:37:16+09",
+      date_created: "2024-04-30 07:37:16+09",
       food_title: "chicken",
       food_description: "CHICKEN!!!",
       image_url: "https://picsum.photos/200/300",
     },
     {
       user_id: 3,
-      date_created: "2023-12-24 13:48:12+09",
+      date_created: "2023-04-29 13:48:12+09",
       food_title: "turkey chicken",
       food_description: "christmas food in Easter",
       image_url: "https://picsum.photos/200/300",
     },
     {
       user_id: 2,
-      date_created: "2024-03-02 06:13:16+09",
+      date_created: "2024-05-02 06:13:16+09",
       food_title: "ice cream",
       food_description: "mint chocolate for life",
       image_url: "https://picsum.photos/200/300",

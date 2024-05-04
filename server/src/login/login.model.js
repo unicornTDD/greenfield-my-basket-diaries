@@ -11,9 +11,12 @@ module.exports = {
   },
 
   //login verification
-  retrievePW(email) {
+  retrievePassword(email) {
     return knex(LOGIN_TABLE)
       .select("hashed_password", "id")
       .where("email", email);
+  },
+  findOne(email) {
+    return knex(LOGIN_TABLE).select("email").where("email", email);
   },
 };
