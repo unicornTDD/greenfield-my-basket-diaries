@@ -22,7 +22,8 @@ app.post("/verify_user", loginController.verifyUser);
 app.get("/diaries", diaryController.getAll);
 app.get("/diaries/:userID", diaryController.getDiarybyUserID)
 app.post("/diaries", diaryController.createDiary);
-app.delete("/diaries/:id", auth, diaryController.deleteDiary);
+app.patch("/diaries/:id", diaryController.editDiary);
+app.delete("/diaries/:id", diaryController.deleteDiary);
 
 //MIDDLEWARE FOR AUTHENTICATION
 function auth(req, res, next) {
