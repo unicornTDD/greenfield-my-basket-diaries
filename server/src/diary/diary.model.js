@@ -18,7 +18,15 @@ module.exports = {
       .into(DIARY_TABLE);
   },
 
+  editDiary(diaryID, foodTitle, foodDescription, imageURL) {
+    return knex(DIARY_TABLE).where({ diary_id: diaryID }).update({
+      food_title: foodTitle,
+      food_description: foodDescription,
+      image_url: imageURL,
+    });
+  },
+
   deleteDiary(deletedId) {
-    return knex("diary").where("diary_id", deletedId).del();
+    return knex(DIARY_TABLE).where("diary_id", deletedId).del();
   },
 };
