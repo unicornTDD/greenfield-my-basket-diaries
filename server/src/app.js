@@ -19,7 +19,8 @@ app.post("/create_user", loginController.createUser);
 app.post("/verify_user", loginController.verifyUser);
 
 //DIARY ENDPOINTS
-app.get("/diaries", auth, diaryController.getAll);
+app.get("/diaries", diaryController.getAll);
+app.post("/diaries", diaryController.createDiary);
 app.delete("/diaries/:id", auth, diaryController.deleteDiary);
 
 //MIDDLEWARE FOR AUTHENTICATION
