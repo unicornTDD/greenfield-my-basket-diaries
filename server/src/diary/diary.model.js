@@ -22,15 +22,24 @@ module.exports = {
     return knex.select("*").where("user_id", userID).from(DIARY_TABLE);
   },
 
-  editDiary(diaryID, foodTitle, foodDescription, imageURL) {
+  editDiary(diaryID, foodTitle, foodDescription) {
     return knex(DIARY_TABLE).where({ diary_id: diaryID }).update({
       food_title: foodTitle,
       food_description: foodDescription,
-      image_url: imageURL,
     });
   },
 
   deleteDiary(deletedId) {
     return knex(DIARY_TABLE).where("diary_id", deletedId).del();
+  },
+  editDiaryTitle(diaryID, foodTitle) {
+    return knex(DIARY_TABLE).where({ diary_id: diaryID }).update({
+      food_title: foodTitle,
+    });
+  },
+  editDiaryDescription(diaryID, foodDescription) {
+    return knex(DIARY_TABLE).where({ diary_id: diaryID }).update({
+      food_description: foodDescription,
+    });
   },
 };
