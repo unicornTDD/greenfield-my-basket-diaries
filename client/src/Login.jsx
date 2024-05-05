@@ -12,6 +12,7 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  Modal,
   OutlinedInput,
   Paper,
   TextField,
@@ -37,6 +38,9 @@ function Login() {
   const [newPassword, setNewPassword] = useState("");
 
   const [showRegister, setShowRegister] = useState(false);
+  const [showConfirmRegister, setShowConfirmRegister] = useState(false);
+  const handleOpen = () => setShowConfirmRegister(true);
+  const handleClose = () => setShowConfirmRegister(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
   // HANDLER FUNCTIONS
@@ -76,9 +80,13 @@ function Login() {
         password: newPassword,
       }),
     });
-    const data = await response.json();
-    if (data) {
+    if (response.status === 200) {
+      setShowRegister((show) => !show);
+      setShowConfirmRegister(true);
+      setTimeout(() => setShowConfirmRegister(false), 5000);
       navigate("/");
+    } else {
+      alert("Error, user already exists or you type the wrong email format");
     }
   };
 

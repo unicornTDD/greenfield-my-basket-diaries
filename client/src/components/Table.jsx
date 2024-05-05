@@ -93,6 +93,7 @@ export default function PaginationTable({ isNewEntry }) {
 
   // USE EFFECT
   useEffect(() => {
+    console.log(isNewEntry);
     handleReadData(); // AUTO RELOAD DATA
   }, [isNewEntry]);
 
