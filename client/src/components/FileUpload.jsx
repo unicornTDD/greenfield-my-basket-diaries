@@ -75,7 +75,7 @@ export default function FileUpload({ setIsNewEntry }) {
   const uploadToDatabase = async () => {
     const response = await fetch(`${BASE_URL}/diaries`, {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -92,7 +92,7 @@ export default function FileUpload({ setIsNewEntry }) {
 
   // RETURN
   return (
-    <Box sx={{ width: "50%" }}>
+    <Box sx={{ width: "100%" }}>
       <Typography variant="h6">New Diary</Typography>
 
       {/* PREVIEW IMAGE */}
