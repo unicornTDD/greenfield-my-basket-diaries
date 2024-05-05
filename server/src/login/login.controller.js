@@ -57,7 +57,7 @@ module.exports = {
           //set session tokens!
           req.session.user = user;
           req.session.authorized = true;
-          res.status(200).send({ message: "Login succesfull!" });
+          res.status(200).send({ message: "Login succesfull!", user: user });
         } else {
           res.status(401).send("Incorrect Password or Email, try again!");
         }
