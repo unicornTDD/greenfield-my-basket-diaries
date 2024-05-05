@@ -34,7 +34,7 @@ module.exports = {
 
   async verifyUser(req, res) {
     const { email, password } = req.body;
-    let dbPassword = null;
+    let dbPassword = "";
     let hash = "";
     let user = "";
 
@@ -44,8 +44,10 @@ module.exports = {
     } else {
       //retrive password
       dbPassword = await loginModel.retrievePassword(email);
-      hash = dbPassword[0]["hashed_password"];
-      user = dbPassword[0]["id"];
+      if (dbPassword.length > 0) {
+        hash = dbPassword[0]["hashed_password"];
+        user = dbPassword[0]["id"];
+      }
     }
 
     //check if valid PW
