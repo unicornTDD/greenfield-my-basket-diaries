@@ -3,7 +3,7 @@ import DateConversion from "../utils/DateConversion";
 
 // @MUI
 import { useTheme } from "@mui/material/styles";
-import { Button, styled } from "@mui/material";
+import { Button, Typography, styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -162,7 +162,7 @@ export default function PaginationTable({ isNewEntry }) {
         </TableHead>
         <TableBody>
           {entries.map((row, index) => (
-            <StyledTableRow key={index}>
+            <StyledTableRow key={index} sx={{ transition: "ease-in-out 0.5s" }}>
               <StyledTableCell component="th" scope="row">
                 <Box
                   sx={{
@@ -172,12 +172,16 @@ export default function PaginationTable({ isNewEntry }) {
                     textAlign: "center",
                   }}
                 >
-                  <p>{DateConversion(row.date_created).date}</p>
-                  <p>{DateConversion(row.date_created).time}</p>
+                  <Typography variant="caption">
+                    {DateConversion(row.date_created).date}
+                  </Typography>
+                  <Typography variant="subtitle2" color="secondary">
+                    {DateConversion(row.date_created).time}
+                  </Typography>
                 </Box>
               </StyledTableCell>
               <StyledTableCell style={{ width: 160 }} align="left">
-                {row.food_title}
+                <Typography variant="h6">{row.food_title}</Typography>
               </StyledTableCell>
               <StyledTableCell style={{ width: 160 }} align="left">
                 {row.user_id}
@@ -188,7 +192,12 @@ export default function PaginationTable({ isNewEntry }) {
               <StyledTableCell style={{ width: 160 }} align="left">
                 <img
                   src={row.image_url}
-                  style={{ width: 200, height: 200, objectFit: "cover" }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    objectFit: "cover",
+                    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)",
+                  }}
                 />
               </StyledTableCell>
               <StyledTableCell>
@@ -246,4 +255,5 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
+  "&:hover": { backgroundColor: "#add6ff" },
 }));
