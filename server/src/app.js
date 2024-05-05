@@ -20,6 +20,7 @@ app.use(
     maxAge: 24 * 60 * 60 * 1000,
     sameSite: "none", // Set SameSite=None
     secure: true, // Set Secure
+
   })
 );
 
