@@ -20,7 +20,7 @@ import Button from "@mui/material/Button";
 //listAll: list all items (objects) in the path folder specified
 //getDownloadURL: get the actual url that can be added to img src to display the image
 
-export default function FileUpload({ setIsNewEntry }) {
+export default function FileUpload({ setIsNewEntry, handleClose }) {
   // USE STATE
   const [previewImage, setPreviewImage] = useState(null);
   const [title, setTitle] = useState(null);
@@ -48,6 +48,7 @@ export default function FileUpload({ setIsNewEntry }) {
     if (imageURL) {
       uploadToDatabase();
       setIsNewEntry((prev) => prev + 1);
+      handleClose();
     }
   }, [imageURL]);
 

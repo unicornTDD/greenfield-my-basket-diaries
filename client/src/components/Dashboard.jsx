@@ -30,7 +30,7 @@ export default function Dashboard() {
       >
         <Box sx={{ width: "70lvw" }}>
           <Paper sx={{ p: 2 }}>
-            <FileUpload setIsNewEntry={setIsNewEntry} />
+            <FileUpload setIsNewEntry={setIsNewEntry} handleClose={handleClose} />
           </Paper>
         </Box>
       </Modal>
