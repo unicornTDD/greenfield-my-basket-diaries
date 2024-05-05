@@ -1,7 +1,7 @@
 require("dotenv").config({ path: "./.env" });
 const express = require("express");
-const session = require("express-session");
 const cors = require("cors");
+const cookieSession = require("cookie-session");
 
 const app = express();
 
@@ -14,14 +14,10 @@ app.use(
 );
 app.use(express.json());
 app.use(
-  session({
-    secret: process.env.SECRET, //ad to teh server env file
-    saveUninitialized: true,
-    resave: true,
-    cookie: {
-      httpOnly: true,
-      maxAge: 360000,
-    },
+  cookieSession({
+    name: "session",
+    keys: [process.env.SECRET], //ad to teh server env file
+    maxAge: 24 * 60 * 60 * 1000,
   })
 );
 
@@ -39,7 +35,6 @@ app.get("/diaries/:userID", auth, diaryController.getDiarybyUserID);
 app.post("/diaries", auth, diaryController.createDiary);
 app.patch("/diaries/:id", auth, diaryController.editDiary);
 app.delete("/diaries/:id", auth, diaryController.deleteDiary);
-
 
 //MIDDLEWARE FOR AUTHENTICATION
 function auth(req, res, next) {
