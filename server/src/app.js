@@ -19,8 +19,9 @@ app.use(
     name: "session",
     keys: [process.env.SECRET], //ad to teh server env file
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: "none", // Set SameSite=None
-    secure: true, // Set Secure
+    secure: true,
+    httpOnly: false,
+    sameSite: "none",
   })
 );
 
