@@ -20,8 +20,26 @@ module.exports = {
 
   async editDiary(req, res) {
     const diaryID = req.params.id;
-    const { foodTitle, foodDescription, imageURL } = req.body;
-    await diaryModel.editDiary(diaryID, foodTitle, foodDescription, imageURL);
+    const { foodTitle, foodDescription } = req.body;
+
+    const hasTitle = foodTitle !== undefined && foodTitle !== null;
+    const hasDescription =
+      foodDescription !== undefined && foodDescription !== null;
+
+    if (hasTitle && hasDescription) {
+      // Both foodTitle and foodDescription are provided
+      await diaryModel.editDiary(diaryID, foodTitle, foodDescription);
+    } else if (hasTitle) {
+      // Only foodTitle is provided
+      await diaryModel.editDiaryTitle(diaryID, foodTitle);
+    } else if (hasDescription) {
+      // Only foodDescription is provided
+      await diaryModel.editDiaryDescription(diaryID, foodDescription);
+    } else {
+      // Neither foodTitle nor foodDescription is provided
+      return res.status(400).send("Invalid request body");
+    }
+
     res.status(200).send("Diary entry updated!");
   },
 
