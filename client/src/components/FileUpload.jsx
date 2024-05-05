@@ -46,14 +46,18 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
 
   useEffect(() => {
     if (imageURL) {
-      uploadToDatabase();
-      setIsNewEntry((prev) => prev + 1);
-      handleClose();
+      handleUploadToDatabase();
     }
   }, [imageURL]);
 
   // HANDLER FUCNTION
   const storage = getStorage();
+
+  const handleUploadToDatabase = async () => {
+    await uploadToDatabase();
+    setIsNewEntry((prev) => prev + 1);
+    handleClose();
+  };
 
   // UPLOAD FILE TO FIREBASE
   const uploadFile = async () => {
