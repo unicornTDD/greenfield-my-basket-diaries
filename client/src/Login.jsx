@@ -24,6 +24,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import CreateUserModal from "./components/CreateUserModal";
 
 // LOCAL COMPONENTS
 
@@ -39,8 +40,6 @@ function Login() {
 
   const [showRegister, setShowRegister] = useState(false);
   const [showConfirmRegister, setShowConfirmRegister] = useState(false);
-  const handleOpen = () => setShowConfirmRegister(true);
-  const handleClose = () => setShowConfirmRegister(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
   // HANDLER FUNCTIONS
@@ -80,11 +79,11 @@ function Login() {
         password: newPassword,
       }),
     });
-    console.log(response.status);
+
     if (response.status === 201) {
       setShowRegister((show) => !show);
       setShowConfirmRegister(true);
-      setTimeout(() => setShowConfirmRegister(false), 5000);
+      setTimeout(() => setShowConfirmRegister(false), 4000);
       navigate("/");
     } else {
       alert("Error, user already exists or you type the wrong email format");
@@ -93,129 +92,133 @@ function Login() {
 
   // RETURN
   return (
-    <Box
-      maxWidth={"100vw"}
-      height={"100lvh"}
-      display={"flex"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      flexDirection={"column"}
-      sx={{
-        backgroundImage: "url('/public/unicorn.jpg')",
-        backgroundSize: "cover",
-      }}
-    >
-      <Container
-        maxWidth="xs"
+    <>
+      {showConfirmRegister && (
+        <CreateUserModal
+          showConfirmRegister={showConfirmRegister}
+          newEmail={newEmail}
+          setShowConfirmRegister={setShowConfirmRegister}
+        />
+      )}
+      <Box
+        maxWidth={"100vw"}
+        height={"100lvh"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        flexDirection={"column"}
         sx={{
-          transition: "ease-in-out 0.2s",
+          backgroundImage: "url('/public/unicorn.jpg')",
+          backgroundSize: "cover",
         }}
       >
-        <Form method="post">
-          <Paper
-            sx={{
-              p: 1,
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
-            }}
-          >
-            <Typography variant="h3">Welcome to Unicorn land</Typography>
-            <TextField
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <FormControl sx={{ width: "100%" }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={showPassword ? "text" : "password"}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-                onChange={(e) => setPassword(e.target.value)}
+        <Container
+          maxWidth="xs"
+          sx={{
+            transition: "ease-in-out 0.2s",
+          }}
+        >
+          <Form method="post">
+            <Paper
+              sx={{
+                p: 1,
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: 1,
+              }}
+            >
+              <Typography variant="h3">Welcome to Unicorn land</Typography>
+              <TextField
+                id="outlined-basic"
+                label="Email"
+                variant="outlined"
+                onChange={(e) => setEmail(e.target.value)}
               />
-            </FormControl>
-
-            <Button
-              variant="contained"
-              onClick={handleVerifyUser}
-              sx={{ mt: 2 }}
-            >
-              Login
-            </Button>
-
-            <Button
-              variant="outlined"
-              onClick={() => setShowRegister((show) => !show)}
-            >
-              Create new account
-            </Button>
-
-            {showRegister && (
-              <>
-                <Divider sx={{ margin: 2 }} />
-
-                <Typography variant="h6">Create new account</Typography>
-                <TextField
-                  id="outlined-basic"
-                  label="Email"
-                  variant="outlined"
-                  onChange={(e) => setNewEmail(e.target.value)}
+              <FormControl sx={{ width: "100%" }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <FormControl sx={{ width: "100%" }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Password
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                    onChange={(e) => setNewPassword(e.target.value)}
+              </FormControl>
+              <Button
+                variant="contained"
+                onClick={handleVerifyUser}
+                sx={{ mt: 2 }}
+              >
+                Login
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => setShowRegister((show) => !show)}
+              >
+                Create new account
+              </Button>
+              {showRegister && (
+                <>
+                  <Divider sx={{ margin: 2 }} />
+                  <Typography variant="h6">Create new account</Typography>
+                  <TextField
+                    id="outlined-basic"
+                    label="Email"
+                    variant="outlined"
+                    onChange={(e) => setNewEmail(e.target.value)}
                   />
-                </FormControl>
-
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  onClick={handleCreateUser}
-                  sx={{ mt: 2 }}
-                >
-                  Register
-                </Button>
-              </>
-            )}
-          </Paper>
-        </Form>
-      </Container>
-    </Box>
+                  <FormControl sx={{ width: "100%" }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">
+                      Password
+                    </InputLabel>
+                    <OutlinedInput
+                      id="outlined-adornment-password"
+                      type={showPassword ? "text" : "password"}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Password"
+                      onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                  </FormControl>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={handleCreateUser}
+                    sx={{ mt: 2 }}
+                  >
+                    Register
+                  </Button>
+                </>
+              )}
+            </Paper>
+          </Form>
+        </Container>
+      </Box>
+    </>
   );
 }
 
