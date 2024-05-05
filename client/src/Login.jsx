@@ -49,7 +49,7 @@ function Login() {
   const handleVerifyUser = async () => {
     const response = await fetch(`${BASE_URL}/verify_user`, {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -67,7 +67,7 @@ function Login() {
   const handleCreateUser = async () => {
     const response = await fetch(`${BASE_URL}/create_user`, {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -92,7 +92,7 @@ function Login() {
       alignItems={"center"}
       flexDirection={"column"}
       sx={{
-        backgroundImage: "url('/src/assets/unicorn.jpg')",
+        backgroundImage: "url('/public/unicorn.jpg')",
         backgroundSize: "cover",
       }}
     >
