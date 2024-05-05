@@ -52,14 +52,16 @@ module.exports = {
 
     //check if valid PW
     try {
-      bcrypt.compare(password, hash, function (err, result) {
+      bcrypt.compare(password, hash, async function (err, result) {
         if (result) {
           //set session tokens!
           req.session.user = user;
           req.session.authorized = true;
           res.status(200).send({ message: "Login succesfull!", user: user });
         } else {
-          res.status(401).send("Incorrect Password or Email, try again!");
+          res
+            .status(401)
+            .send({ error: "Incorrect Password or Email, try again!" });
         }
       });
     } catch (error) {
