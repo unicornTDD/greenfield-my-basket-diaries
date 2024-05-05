@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Form, Link, useNavigate } from "react-router-dom";
-import "./App.css";
+import React, { useState } from "react";
+import { Form, useNavigate } from "react-router-dom";
+import sample from "../public/BG.mp4";
+import "./Login.css";
 
 // @MUI
 import {
-  Box,
   Button,
   Container,
-  Divider,
+  Fade,
   FormControl,
   IconButton,
   InputAdornment,
   InputLabel,
-  Modal,
   OutlinedInput,
   Paper,
   TextField,
@@ -42,12 +41,15 @@ function Login() {
   const [showConfirmRegister, setShowConfirmRegister] = useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
+  // USE EFFECTS
+
   // HANDLER FUNCTIONS
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const navigate = useNavigate();
+
+  const navigate = useNavigate(); // REACT ROUTER DOM
 
   const handleVerifyUser = async () => {
     const response = await fetch(`${BASE_URL}/verify_user`, {
@@ -79,7 +81,7 @@ function Login() {
         password: newPassword,
       }),
     });
-    
+
     if (response.status === 201) {
       setShowRegister((show) => !show);
       setShowConfirmRegister(true);
@@ -100,20 +102,13 @@ function Login() {
           setShowConfirmRegister={setShowConfirmRegister}
         />
       )}
-      <Box
-        maxWidth={"100vw"}
-        height={"100lvh"}
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        flexDirection={"column"}
-        sx={{
-          backgroundImage: "url('/public/unicorn.jpg')",
-          backgroundSize: "cover",
-        }}
-      >
+      <video className="videoTag" autoPlay loop muted>
+        <source src={sample} type="video/mp4" />
+      </video>
+
+      <div className="background-container">
         <Container
-          maxWidth="xs"
+          maxWidth="sm"
           sx={{
             transition: "ease-in-out 0.2s",
           }}
@@ -121,103 +116,138 @@ function Login() {
           <Form method="post">
             <Paper
               sx={{
-                p: 1,
+                p: 2,
                 width: "100%",
                 display: "flex",
                 flexDirection: "column",
+                borderRadius: 2,
                 gap: 1,
               }}
             >
-              <Typography variant="h3">Welcome to Unicorn land</Typography>
-              <TextField
-                id="outlined-basic"
-                label="Email"
-                variant="outlined"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <FormControl sx={{ width: "100%" }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? "text" : "password"}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </FormControl>
-              <Button
-                variant="contained"
-                onClick={handleVerifyUser}
-                sx={{ mt: 2 }}
-              >
-                Login
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => setShowRegister((show) => !show)}
-              >
-                Create new account
-              </Button>
-              {showRegister && (
-                <>
-                  <Divider sx={{ margin: 2 }} />
-                  <Typography variant="h6">Create new account</Typography>
-                  <TextField
-                    id="outlined-basic"
-                    label="Email"
-                    variant="outlined"
-                    onChange={(e) => setNewEmail(e.target.value)}
-                  />
-                  <FormControl sx={{ width: "100%" }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">
-                      Password
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-password"
-                      type={showPassword ? "text" : "password"}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label="Password"
-                      onChange={(e) => setNewPassword(e.target.value)}
+              <Typography variant="h4" sx={{ textAlign: "center" }}>
+                Welcome to <br />
+                MY BASKET DIARY
+              </Typography>
+
+              {!showRegister && (
+                <Fade in={!showRegister} timeout={{ enter: 800, exit: 400 }}>
+                  <div className="form">
+                    <Typography variant="h6">Login to your account</Typography>
+                    <TextField
+                      id="outlined-basic"
+                      label="Email"
+                      variant="outlined"
+                      sx={{ my: 1 }}
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                        setEmail(e.target.value);
+                      }}
                     />
-                  </FormControl>
-                  <Button
-                    color="secondary"
-                    variant="contained"
-                    onClick={handleCreateUser}
-                    sx={{ mt: 2 }}
-                  >
-                    Register
-                  </Button>
-                </>
+                    <FormControl sx={{ width: "100%" }} variant="outlined">
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={showPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </FormControl>
+                    <Button
+                      variant="contained"
+                      onClick={handleVerifyUser}
+                      sx={{ my: 1 }}
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      variant="text"
+                      onClick={() => setShowRegister((show) => !show)}
+                    >
+                      Create new account
+                    </Button>
+                  </div>
+
+                  {/* <LoginForm /> */}
+                </Fade>
+              )}
+              {showRegister && (
+                <Fade in={showRegister} timeout={{ enter: 800, exit: 400 }}>
+                  <div className="form">
+                    <Typography variant="h6">Create new account</Typography>
+                    <TextField
+                      id="outlined-basic"
+                      label="Email"
+                      variant="outlined"
+                      sx={{ my: 1 }}
+                      onChange={(e) => setNewEmail(e.target.value)}
+                    />
+                    <FormControl sx={{ width: "100%" }} variant="outlined">
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={showPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Password"
+                        onChange={(e) => setNewPassword(e.target.value)}
+                      />
+                    </FormControl>
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      onClick={handleCreateUser}
+                      sx={{ my: 1 }}
+                    >
+                      Register
+                    </Button>
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      onClick={() => setShowRegister((show) => !show)}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </Fade>
               )}
             </Paper>
           </Form>
         </Container>
-      </Box>
+      </div>
     </>
   );
 }
