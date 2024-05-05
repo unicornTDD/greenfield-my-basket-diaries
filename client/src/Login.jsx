@@ -134,7 +134,7 @@ function Login() {
                   <div className="form">
                     <Typography variant="h6">Login to your account</Typography>
                     <TextField
-                      id="outlined-basic"
+                      id="loginEmail"
                       label="Email"
                       variant="outlined"
                       sx={{ my: 1 }}
@@ -148,7 +148,7 @@ function Login() {
                         Password
                       </InputLabel>
                       <OutlinedInput
-                        id="outlined-adornment-password"
+                        id="loginPassword"
                         type={showPassword ? "text" : "password"}
                         endAdornment={
                           <InputAdornment position="end">
@@ -193,7 +193,7 @@ function Login() {
                   <div className="form">
                     <Typography variant="h6">Create new account</Typography>
                     <TextField
-                      id="outlined-basic"
+                      id="createEmail"
                       label="Email"
                       variant="outlined"
                       sx={{ my: 1 }}
@@ -204,7 +204,7 @@ function Login() {
                         Password
                       </InputLabel>
                       <OutlinedInput
-                        id="outlined-adornment-password"
+                        id="createPassword"
                         type={showPassword ? "text" : "password"}
                         endAdornment={
                           <InputAdornment position="end">
