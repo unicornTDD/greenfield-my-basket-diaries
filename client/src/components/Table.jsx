@@ -3,7 +3,7 @@ import DateConversion from "../utils/DateConversion";
 
 // @MUI
 import { useTheme } from "@mui/material/styles";
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -125,7 +125,14 @@ export default function PaginationTable({ isNewEntry }) {
     handleReadData();
   };
 
-
+  const handleDeleteDiary = async (diaryID) => {
+    await fetch(`${BASE_URL}/diaries/${diaryID}`, {
+      credentials: "include",
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    handleReadData();
+  };
 
   // RETURN
   return (
@@ -199,9 +206,18 @@ export default function PaginationTable({ isNewEntry }) {
                     setEditDescription(e.target.value);
                   }}
                 />
-                <button onClick={() => handleEditDiary(row.diary_id)}>
+                <Button onClick={() => handleEditDiary(row.diary_id)}>
                   Submit
-                </button>
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => {
+                    handleDeleteDiary(row.diary_id);
+                  }}
+                >
+                  Delete
+                </Button>
               </StyledTableCell>
             </StyledTableRow>
           ))}
