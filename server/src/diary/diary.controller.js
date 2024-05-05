@@ -21,8 +21,7 @@ module.exports = {
   async editDiary(req, res) {
     const diaryID = req.params.id;
     const { foodTitle, foodDescription, imageURL } = req.body;
-    console.log("diary id", diaryID);
-    console.log("req.body", req.body);
+   
     await diaryModel.editDiary(diaryID, foodTitle, foodDescription, imageURL);
     res.status(200).send("Diary entry updated!");
   },
