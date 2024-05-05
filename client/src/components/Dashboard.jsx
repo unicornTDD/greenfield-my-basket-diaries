@@ -3,6 +3,8 @@ import PaginationTable from "./Table";
 import FileUpload from "./FileUpload";
 import { useState } from "react";
 
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+
 export default function Dashboard() {
   // USE STATE
   const [isNewEntry, setIsNewEntry] = useState(0);
@@ -18,8 +20,10 @@ export default function Dashboard() {
         variant="contained"
         sx={{ alignSelf: "flex-end", mb: 2 }}
         onClick={handleOpen}
+        color="secondary"
       >
         New Diary
+        <AddCircleIcon sx={{ ml: 1 }} />
       </Button>
       <Modal
         open={open}

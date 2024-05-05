@@ -3,7 +3,7 @@ import DateConversion from "../utils/DateConversion";
 
 // @MUI
 import { useTheme } from "@mui/material/styles";
-import { Button, Typography, styled } from "@mui/material";
+import { Button, TextField, Typography, styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -200,33 +200,44 @@ export default function PaginationTable({ isNewEntry }) {
                   }}
                 />
               </StyledTableCell>
-              <StyledTableCell>
-                <input
-                  type="text"
-                  placeholder="title"
-                  onChange={(e) => {
-                    setEditTitle(e.target.value);
-                  }}
-                />
-                <input
-                  type="text"
-                  placeholder="description"
-                  onChange={(e) => {
-                    setEditDescription(e.target.value);
-                  }}
-                />
-                <Button onClick={() => handleEditDiary(row.diary_id)}>
-                  Submit
-                </Button>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={() => {
-                    handleDeleteDiary(row.diary_id);
+              <StyledTableCell sx={{ width: 100 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 1,
+                    width: 250,
                   }}
                 >
-                  Delete
-                </Button>
+                  <TextField
+                    label="title"
+                    onChange={(e) => {
+                      setEditTitle(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    label="description"
+                    onChange={(e) => {
+                      setEditDescription(e.target.value);
+                    }}
+                  />
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => handleEditDiary(row.diary_id)}
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    variant="text"
+                    color="error"
+                    onClick={() => {
+                      handleDeleteDiary(row.diary_id);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </Box>
               </StyledTableCell>
             </StyledTableRow>
           ))}
