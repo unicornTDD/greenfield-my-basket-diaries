@@ -80,7 +80,8 @@ function Login() {
         password: newPassword,
       }),
     });
-    if (response.status === 200) {
+    console.log(response.status);
+    if (response.status === 201) {
       setShowRegister((show) => !show);
       setShowConfirmRegister(true);
       setTimeout(() => setShowConfirmRegister(false), 5000);
