@@ -28,13 +28,17 @@ export default function Dashboard() {
         aria-describedby="modal-modal-description"
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Box sx={{ width: "70lvw" }}>
+        <Box sx={{ width: "50lvw" }}>
           <Paper sx={{ p: 2 }}>
-            <FileUpload setIsNewEntry={setIsNewEntry} handleClose={handleClose} />
+            <FileUpload
+              setIsNewEntry={setIsNewEntry}
+              handleClose={handleClose}
+            />
           </Paper>
         </Box>
       </Modal>
 
+      {/* TABLE */}
       <PaginationTable isNewEntry={isNewEntry} />
     </Box>
   );
