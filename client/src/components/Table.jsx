@@ -90,10 +90,12 @@ export default function PaginationTable({ isNewEntry }) {
   const [entries, setEntries] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
+  const [diaryID, setDiaryID] = useState("");
+  const [editTitle, setEditTitle] = useState(null);
+  const [editDescription, setEditDescription] = useState(null);
 
   // USE EFFECT
   useEffect(() => {
-    console.log(isNewEntry);
     handleReadData(); // AUTO RELOAD DATA
   }, [isNewEntry]);
 
@@ -104,9 +106,25 @@ export default function PaginationTable({ isNewEntry }) {
     const sortedDataDesc = data.sort((a, b) => {
       return b.diary_id - a.diary_id;
     });
-
     setEntries([...sortedDataDesc]);
   };
+
+  const handleEditDiary = async (diaryID) => {
+    const response = await fetch(`${BASE_URL}/diaries/${diaryID}`, {
+      credentials: "include",
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        foodTitle: editTitle,
+        foodDescription: editDescription,
+      }),
+    });
+    setEditTitle(null);
+    setEditDescription(null);
+    handleReadData();
+  };
+
+
 
   // RETURN
   return (
@@ -131,6 +149,7 @@ export default function PaginationTable({ isNewEntry }) {
             <TableCell sx={{ width: 40 }} align="left">
               Image
             </TableCell>
+            <TableCell sx={{ width: 10 }}>Edit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -163,6 +182,25 @@ export default function PaginationTable({ isNewEntry }) {
                   src={row.image_url}
                   style={{ width: 200, height: 200, objectFit: "cover" }}
                 />
+              </StyledTableCell>
+              <StyledTableCell>
+                <input
+                  type="text"
+                  placeholder="title"
+                  onChange={(e) => {
+                    setEditTitle(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="description"
+                  onChange={(e) => {
+                    setEditDescription(e.target.value);
+                  }}
+                />
+                <button onClick={() => handleEditDiary(row.diary_id)}>
+                  Submit
+                </button>
               </StyledTableCell>
             </StyledTableRow>
           ))}
