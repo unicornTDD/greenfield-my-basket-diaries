@@ -40,6 +40,7 @@ function Login() {
 
   const [showRegister, setShowRegister] = useState(false);
   const [showConfirmRegister, setShowConfirmRegister] = useState(false);
+
   const [showPassword, setShowPassword] = React.useState(false);
 
   // HANDLER FUNCTIONS
@@ -84,6 +85,7 @@ function Login() {
       setShowRegister((show) => !show);
       setShowConfirmRegister(true);
       setTimeout(() => setShowConfirmRegister(false), 4000);
+
       navigate("/");
     } else {
       alert("Error, user already exists or you type the wrong email format");
