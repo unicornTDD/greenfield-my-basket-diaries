@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import DateConversion from "../utils/DateConversion";
+
+// @MUI
 import { useTheme } from "@mui/material/styles";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -88,33 +91,20 @@ export default function PaginationTable({ isNewEntry }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - entries.length) : 0;
-
   // USE EFFECT
   useEffect(() => {
-    handleReadData();
+    handleReadData(); // AUTO RELOAD DATA
   }, [isNewEntry]);
 
-  // HANDLERS
+  // HANDLERS FUNCTION
   const handleReadData = async () => {
-    const resp = await fetch(`${BASE_URL}/diaries`, {credentials: 'include'});
+    const resp = await fetch(`${BASE_URL}/diaries`, { credentials: "include" });
     const data = await resp.json();
     const sortedDataDesc = data.sort((a, b) => {
       return b.diary_id - a.diary_id;
     });
 
     setEntries([...sortedDataDesc]);
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
   };
 
   // RETURN
@@ -143,16 +133,20 @@ export default function PaginationTable({ isNewEntry }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {(rowsPerPage > 0
-            ? entries.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : entries
-          ).map((row, index) => (
+          {entries.map((row, index) => (
             <StyledTableRow key={index}>
               <StyledTableCell component="th" scope="row">
-                {row.date_created}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <p>{DateConversion(row.date_created).date}</p>
+                  <p>{DateConversion(row.date_created).time}</p>
+                </Box>
               </StyledTableCell>
               <StyledTableCell style={{ width: 160 }} align="left">
                 {row.food_title}
@@ -171,34 +165,7 @@ export default function PaginationTable({ isNewEntry }) {
               </StyledTableCell>
             </StyledTableRow>
           ))}
-          {emptyRows > 0 && (
-            <StyledTableRow style={{ height: 52 * emptyRows }}>
-              <StyledTableCell colSpan={5} />
-            </StyledTableRow>
-          )}
         </TableBody>
-        {/* <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={3}
-              count={entries.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              slotProps={{
-                select: {
-                  inputProps: {
-                    "aria-label": "rows per page",
-                  },
-                  native: true,
-                },
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter> */}
       </Table>
     </TableContainer>
   );
