@@ -1,6 +1,8 @@
 const loginModel = require("./login.model");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: "./.env" });
 const saltRounds = 10;
 
 module.exports = {
@@ -55,9 +57,10 @@ module.exports = {
       bcrypt.compare(password, hash, async function (err, result) {
         if (result) {
           //set session tokens!
-          req.session.user = user;
-          req.session.authorized = true;
-          res.status(200).send({ message: "Login succesfull!", user: user });
+          const token = jwt.sign({ id: user }, process.env.SECRET, {
+            expiresIn: "1h",
+          });
+          res.json({ token });
         } else {
           res
             .status(401)

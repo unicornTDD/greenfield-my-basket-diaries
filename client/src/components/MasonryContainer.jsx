@@ -43,11 +43,15 @@ export default function PaginationTable({ isNewEntry }) {
   // HANDLERS FUNCTION
   const handleClose = () => setIsEdit(false);
   const handleEditDiary = async (diaryID) => {
+  const token = localStorage.getItem("jwtToken")
 
     await fetch(`${BASE_URL}/diaries/${diaryID}`, {
       credentials: "include",
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+    },
       body: JSON.stringify({
         foodTitle: editTitle,
         foodDescription: editDescription,

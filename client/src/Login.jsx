@@ -64,7 +64,9 @@ function Login() {
       }),
     });
     const data = await response.json();
-    if (data) {
+    const token = data.token
+    if (token) {
+      localStorage.setItem('jwtToken', token);
       navigate("/diary");
     }
   };
