@@ -55,7 +55,7 @@ Testing:
 Front-end:
 - We have used the Web bundler with Vanilla JavaScript and React.
 - The application structure is the following:
-
+```
 Client 
     -MAIN JSX
         -"/",LOGIN.jsx
@@ -70,6 +70,7 @@ APP - Header - User profile
                         -Love
                         -EDIT
                         -DELETE
+``` 
 
 
 Styling:
