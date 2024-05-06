@@ -4,6 +4,7 @@ import UploadButton from "./UploadButton";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const username = localStorage.getItem("userId")
+const userID = Number(username);
 
 // FIREBASE
 import "./FileUpload.css";
@@ -88,7 +89,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        userID: username,
+        userID: userID,
         foodTitle: title,
         foodDescription: description,
         imageURL: imageURL,
