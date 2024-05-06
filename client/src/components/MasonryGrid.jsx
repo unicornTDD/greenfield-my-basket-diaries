@@ -62,7 +62,11 @@ export default function MasonryGrid({
           <CardMedia
             component="img"
             height="194"
-            image={entry.image_url || "/public/noImage.png"}
+            image={
+              entry.image_url ||
+              "https://firebasestorage.googleapis.com/v0/b/my-basket-diaries.appspot.com/o/diaryEntries%2FnoImage.png?alt=media&token=33a5d687-5b67-4284-a340-f8f2f8bb07de"
+            }
+
             alt="Paella dish"
           />
           <CardContent>
