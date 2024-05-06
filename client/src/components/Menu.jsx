@@ -28,6 +28,7 @@ export default function MenuSimple() {
     setAnchorEl(null);
   };
   const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
     navigate("/");
   };
 
