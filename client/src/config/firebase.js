@@ -6,12 +6,12 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB544ckh-_U7w62PljZlQpXmotDp2UfVTw",
-  authDomain: "my-basket-diaries.firebaseapp.com",
-  projectId: "my-basket-diaries",
-  storageBucket: "my-basket-diaries.appspot.com",
-  messagingSenderId: "847696439485",
-  appId: "1:847696439485:web:2f2546aef1ee02e70defd4",
+  apiKey: import.meta.env.VITE_FIREBASE_API,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 // Initialize Firebase
