@@ -19,12 +19,15 @@ import { Box, Button, Modal, TextField } from "@mui/material";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
+const username = localStorage.getItem("userInitials").toUpperCase();
+
 export default function MasonryGrid({
   entries,
   handleDeleteDiary,
   handleReadData,
   setIsEdit,
   setEditId,
+  setEditUserId,
 }) {
   // RETURN
   return (
@@ -48,7 +51,7 @@ export default function MasonryGrid({
           <CardHeader
             avatar={
               <Avatar sx={{ bgcolor: "rgb(224,137,146)" }} aria-label="recipe">
-                CC
+                {entry.user_id}
               </Avatar>
             }
             title={<Typography variant="h6">{entry.food_title}</Typography>}
@@ -86,6 +89,7 @@ export default function MasonryGrid({
               onClick={() => {
                 setEditId(entry.diary_id);
                 setIsEdit(true);
+                setEditUserId(entry.user_id);
               }}
             >
               <EditIcon />
@@ -93,7 +97,7 @@ export default function MasonryGrid({
             <IconButton
               aria-label="share"
               sx={{ color: "white" }}
-              onClick={() => handleDeleteDiary(entry.diary_id)}
+              onClick={() => handleDeleteDiary(entry.diary_id, entry.user_id)}
             >
               <DeleteIcon />
             </IconButton>

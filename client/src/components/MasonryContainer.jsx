@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+const username = localStorage.getItem("userId").toUpperCase();
 
 // @MUI
 import MasonryGrid from "./MasonryGrid";
@@ -14,6 +15,7 @@ export default function PaginationTable({ isNewEntry }) {
   const [editTitle, setEditTitle] = useState(null);
   const [editDescription, setEditDescription] = useState(null);
   const [editId, setEditId] = useState(null);
+  const [editUserId, setEditUserId] = useState(null);
 
   // USE EFFECT
   useEffect(() => {
@@ -22,57 +24,69 @@ export default function PaginationTable({ isNewEntry }) {
 
   // HANDLERS FUNCTION
   const handleReadData = async () => {
-    const token = localStorage.getItem("jwtToken")
+    const token = localStorage.getItem("jwtToken");
     const response = await fetch(`${BASE_URL}/diaries/`, {
       credentials: "include",
       method: "GET",
-      headers: { 
-        "Content-Type": "application/json",   
-         'Authorization': `Bearer ${token}`,
-    },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     const data = await response.json();
     const sortedDataDesc = data.sort((a, b) => {
       return b.diary_id - a.diary_id;
     });
+    console.log(sortedDataDesc);
 
     setEntries([...sortedDataDesc]);
   };
 
-  const handleDeleteDiary = async (diaryID) => {
-    const token = localStorage.getItem("jwtToken")
-    await fetch(`${BASE_URL}/diaries/${diaryID}`, {
-      credentials: "include",
-      method: "DELETE",
-      headers: { 
-        "Content-Type": "application/json",   
-         'Authorization': `Bearer ${token}`,
-    },
-    });
-    handleReadData();
+  const handleDeleteDiary = async (diaryID, editUserId) => {
+    console.log(`${editUserId}`, username);
+    if (`${editUserId}` === username) {
+      const token = localStorage.getItem("jwtToken");
+      await fetch(`${BASE_URL}/diaries/${diaryID}`, {
+        credentials: "include",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      handleReadData();
+    } else {
+      alert("you shall not delete");
+    }
   };
 
   // HANDLERS FUNCTION
   const handleClose = () => setIsEdit(false);
-  const handleEditDiary = async (diaryID) => {
-  const token = localStorage.getItem("jwtToken")
 
-    await fetch(`${BASE_URL}/diaries/${diaryID}`, {
-      credentials: "include",
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`,
-    },
-      body: JSON.stringify({
-        foodTitle: editTitle,
-        foodDescription: editDescription,
-      }),
-    });
-    setEditTitle(null);
-    setEditDescription(null);
-    setEditId(null);
-    handleReadData();
+  const handleEditDiary = async (diaryID, editUserId) => {
+    console.log(`${editUserId}`, username);
+    if (`${editUserId}` === username) {
+      const token = localStorage.getItem("jwtToken");
+
+      await fetch(`${BASE_URL}/diaries/${diaryID}`, {
+        credentials: "include",
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          foodTitle: editTitle,
+          foodDescription: editDescription,
+        }),
+      });
+      setEditTitle(null);
+      setEditDescription(null);
+      setEditId(null);
+      handleReadData();
+    } else {
+      alert("you shall not edit");
+    }
   };
 
   // RETURN
@@ -85,6 +99,7 @@ export default function PaginationTable({ isNewEntry }) {
         handleReadData={handleReadData}
         setIsEdit={setIsEdit}
         setEditId={setEditId}
+        setEditUserId={setEditUserId}
       />
 
       {/* MODAL */}
@@ -142,7 +157,7 @@ export default function PaginationTable({ isNewEntry }) {
                 color="primary"
                 sx={{ width: "60%" }}
                 onClick={() => {
-                  handleEditDiary(editId);
+                  handleEditDiary(editId, editUserId);
                   setIsEdit(false);
                 }}
               >
@@ -153,7 +168,6 @@ export default function PaginationTable({ isNewEntry }) {
                 color="error"
                 sx={{ width: "30%" }}
                 onClick={() => {
-                  handleEditDiary(editId);
                   setIsEdit(false);
                 }}
               >
