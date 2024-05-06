@@ -135,8 +135,10 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
       />
 
       {/* UPLOAD BUTTON */}
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <UploadButton setFileUpload={setFileUpload} />
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+      >
+        <UploadButton setFileUpload={setFileUpload} sx={{ margin: "4px" }} />
         <Button
           variant="outlined"
           component="label"
@@ -146,7 +148,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
             await uploadFile();
           }}
         >
-          Upload File
+          Create Diary
         </Button>
         {/* {imageList.map((url) => {
           return <img src={url} />;
