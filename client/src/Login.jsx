@@ -124,10 +124,12 @@ function Login() {
                 gap: 1,
               }}
             >
-              <Typography variant="h4" sx={{ textAlign: "center" }}>
-                Welcome to <br />
-                MY BASKET DIARY
-              </Typography>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img
+                  src="/public/logo.png"
+                  style={{ transform: "scale(1.7)" }}
+                />
+              </div>
 
               {!showRegister && (
                 <Fade in={!showRegister} timeout={{ enter: 800, exit: 400 }}>

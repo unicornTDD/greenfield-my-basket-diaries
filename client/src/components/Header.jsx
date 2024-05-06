@@ -5,9 +5,10 @@ import { Typography } from "@mui/material";
 const Header = () => {
   return (
     <div className="header">
-      <Typography variant="h3" color={"primary"} sx={{ fontWeight: "bold" }}>
-        GREEN FIELD MY BASKET DIARY
-      </Typography>
+      <img
+        src="/public/logo.png"
+        style={{ transform: "scale(1.5) translate(30px)" }}
+      />
       <MenuSimple className="MenuSimple" />
     </div>
   );

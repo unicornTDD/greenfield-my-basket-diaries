@@ -1,5 +1,5 @@
 import { Box, Button, Modal, Paper } from "@mui/material";
-import PaginationTable from "./Table";
+import PaginationTable from "./MasonryContainer";
 import FileUpload from "./FileUpload";
 import { useState } from "react";
 
@@ -14,13 +14,25 @@ export default function Dashboard() {
 
   // RETURN
   return (
-    <Box padding={2} sx={{ display: "flex", flexDirection: "column" }}>
+    <Box
+      padding={2}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        // backgroundColor: "rgb(230, 144, 153)",
+      }}
+    >
       {/* FILE UPLOAD */}
       <Button
         variant="contained"
-        sx={{ alignSelf: "flex-end", mb: 2 }}
+        sx={{
+          alignSelf: "flex-end",
+          mb: 2,
+          backgroundColor: "rgb(224, 100, 146)",
+        }}
         onClick={handleOpen}
-        color="secondary"
       >
         New Diary
         <AddCircleIcon sx={{ ml: 1 }} />
