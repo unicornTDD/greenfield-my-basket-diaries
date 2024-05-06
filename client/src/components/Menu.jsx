@@ -28,8 +28,13 @@ export default function MenuSimple() {
     setAnchorEl(null);
   };
   const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userInitials");
     navigate("/");
   };
+
+  const username = localStorage.getItem("userInitials").toUpperCase();
 
   // RETURN
   return (
@@ -46,7 +51,7 @@ export default function MenuSimple() {
             aria-expanded={open ? "true" : undefined}
           >
             <Avatar sx={{ width: 32, height: 32, bgcolor: "#5d89c7" }}>
-              CC
+              {username}
             </Avatar>
           </IconButton>
         </Tooltip>

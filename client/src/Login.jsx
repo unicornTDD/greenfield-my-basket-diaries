@@ -64,7 +64,12 @@ function Login() {
       }),
     });
     const data = await response.json();
-    if (data) {
+    const token = data.token;
+    const id = data.user;
+    if (token) {
+      localStorage.setItem("jwtToken", token);
+      localStorage.setItem("userId", id);
+      localStorage.setItem("userInitials", email.slice(0, 2));
       navigate("/diary");
     }
   };
@@ -110,7 +115,6 @@ function Login() {
       <div className="background-container">
         <Container
           maxWidth="sm"
-
           sx={{
             transition: "ease-in-out 0.2s",
           }}
@@ -118,7 +122,6 @@ function Login() {
           <Form method="post">
             <Paper
               sx={{
-
                 p: 2,
                 width: "100%",
                 display: "flex",
@@ -129,7 +132,6 @@ function Login() {
             >
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <img
-
                   src="https://firebasestorage.googleapis.com/v0/b/my-basket-diaries.appspot.com/o/diaryEntries%2Flogo.png?alt=media&token=6c66aa6e-588a-4ca5-a826-fa6c001a15ec"
 
                   style={{ transform: "scale(1.7)" }}
@@ -249,14 +251,11 @@ function Login() {
                     </Button>
                   </div>
                 </Fade>
-
               )}
             </Paper>
           </Form>
         </Container>
-
       </div>
-
     </>
   );
 }

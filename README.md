@@ -23,7 +23,6 @@ This project is a web application for making diary entries about food. The diary
 - Change `env.example` to `.env` and replace the placeholders
 
 - Development:
-  - For testing locally, you have to set the `cookies.secure` setting to `false` in `@app.js`.
   - Server: `npm run express-dev`
   - Client: `npm run dev`
   - Test: `npm test`
@@ -33,30 +32,37 @@ This project is a web application for making diary entries about food. The diary
 The backend utilizes the MVC (Model-View-Controller) structure.
 
 Middlewares used:
-- cookie-session: establishing cookie session on the client-side
+
 - express.json: parsing incoming requests and responses
 - cors: managing cross-origin requests and responses
-- auth: protecting endpoints
+- auth: protecting endpoints with JSON WEBTOKENS stored in LOCAL STORAGE
 
 Model:
+
 - Using Knex to connect to the PostgreSQL database
 
 View:
+
 - Login/Creating User endpoints
 - The DIARY endpoints are all protected by the authentication middleware that utilizes the cookie session
 
 Controller:
+
 - Handling verification of requests like valid email or already existing users
 
 Testing:
+
+
 - For Testing, we use Jest to run tests for User creation. Further tests will be added soon.
 - For Testing Login, there is a bug that the test is failing upon entering correct user data. This is not the case as it has been manually tested. We suspect some race condition happening in the Controller.
 
 Front-end:
+
 - We have used the Web bundler with Vanilla JavaScript and React.
 - The application structure is the following:
+
 ```
-Client 
+Client
     -MAIN JSX
         -"/",LOGIN.jsx
         -"diary" , App.jsx
@@ -70,15 +76,18 @@ APP - Header - User profile
                         -Love
                         -EDIT
                         -DELETE
-``` 
 
+```
 
 Styling:
+
+
 - We are using a 3rd Party Library: Material-UI (MUI)
 - Pre-built CSS components to style the pages
 - You are able to configure the components: https://mui.com/
 
 Additional Information:
+
 - The backend follows the Model-View-Controller (MVC) architectural pattern, which separates the application logic into three interconnected components: the Model (data access layer), the View (user interface layer), and the Controller (application logic layer).
 - The middleware functions are used to handle various tasks, such as session management, request parsing, CORS handling, and authentication.
 - The Model layer uses Knex.js, a SQL query builder for Node.js, to interact with the PostgreSQL database.
@@ -115,7 +124,7 @@ You have not only helped us solve difficult problems but also challenged us to a
 This project wouldn't be possible without the following open-source libraries and packages:
 
 - **[bcrypt](https://github.com/kelektiv/node.bcrypt.js)** - A library for hashing passwords
-- **[cookie-session](https://github.com/expressjs/cookie-session)** - Cookie-based session middleware for Express
+- **[JSON Web Token (JWT)](https://github.com/expressjs/cookie-session)** - Local Storage Authentication for Sessions
 - **[cors](https://github.com/expressjs/cors)** - A Node.js package for providing a Connect/Express middleware for handling CORS
 - **[dotenv](https://github.com/motdotla/dotenv)** - A zero-dependency module for loading environment variables from a `.env` file
 - **[express](https://expressjs.com/)** - A fast and minimalist web application framework for Node.js
