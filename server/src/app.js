@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(
   cookieSession({
     name: "session",
-    keys: [process.env.SECRET], //ad to teh server env file
+    keys: [process.env.SECRET, process.env.FIRE_BASE], 
     maxAge: 24 * 60 * 60 * 1000,
     secure: true,
     httpOnly: false,
@@ -34,11 +34,11 @@ app.post("/create_user", loginController.createUser);
 app.post("/verify_user", loginController.verifyUser);
 
 //DIARY ENDPOINTS
-app.get("/diaries", auth, diaryController.getAll);
-app.get("/diaries/:userID", auth, diaryController.getDiarybyUserID);
-app.post("/diaries", auth, diaryController.createDiary);
-app.patch("/diaries/:id", auth, diaryController.editDiary);
-app.delete("/diaries/:id", auth, diaryController.deleteDiary);
+app.get("/diaries", diaryController.getAll);
+app.get("/diaries/:userID", diaryController.getDiarybyUserID);
+app.post("/diaries", diaryController.createDiary);
+app.patch("/diaries/:id", diaryController.editDiary);
+app.delete("/diaries/:id", diaryController.deleteDiary);
 
 //MIDDLEWARE FOR AUTHENTICATION
 function auth(req, res, next) {
