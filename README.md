@@ -52,6 +52,7 @@ Controller:
 
 Testing:
 
+
 - For Testing, we use Jest to run tests for User creation. Further tests will be added soon.
 - For Testing Login, there is a bug that the test is failing upon entering correct user data. This is not the case as it has been manually tested. We suspect some race condition happening in the Controller.
 
@@ -75,9 +76,11 @@ APP - Header - User profile
                         -Love
                         -EDIT
                         -DELETE
+
 ```
 
 Styling:
+
 
 - We are using a 3rd Party Library: Material-UI (MUI)
 - Pre-built CSS components to style the pages
@@ -95,6 +98,7 @@ Additional Information:
 - The application structure follows a standard React application structure, with separate components for different parts of the application.
 - The styling is handled using Material-UI (MUI), a popular React UI framework that provides pre-built components and styles.
 - The documentation mentions that you can configure the MUI components according to your needs by visiting the official MUI documentation.
+
 
 ## Acknowledgments
 

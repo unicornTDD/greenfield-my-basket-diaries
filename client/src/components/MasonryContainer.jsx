@@ -37,7 +37,7 @@ export default function PaginationTable({ isNewEntry }) {
     const sortedDataDesc = data.sort((a, b) => {
       return b.diary_id - a.diary_id;
     });
-    console.log(sortedDataDesc);
+
 
     setEntries([...sortedDataDesc]);
   };
@@ -87,6 +87,7 @@ export default function PaginationTable({ isNewEntry }) {
     } else {
       alert("you shall not edit");
     }
+
   };
 
   // RETURN
