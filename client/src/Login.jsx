@@ -129,6 +129,7 @@ function Login() {
             >
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <img
+
                   src="https://firebasestorage.googleapis.com/v0/b/my-basket-diaries.appspot.com/o/diaryEntries%2Flogo.png?alt=media&token=6c66aa6e-588a-4ca5-a826-fa6c001a15ec"
 
                   style={{ transform: "scale(1.7)" }}
