@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import "./App.css";
+import React from "react";
 
 // @MUI
 import "@fontsource/roboto/300.css";

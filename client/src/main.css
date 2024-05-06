@@ -1,0 +1,10 @@
+#root {
+  height: 100%;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    180deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(230, 144, 153, 0.88) 0%,
+    rgba(0, 212, 255, 0.03267244397759106) 100%
+  );
+}

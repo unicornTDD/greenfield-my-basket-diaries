@@ -1,7 +1,9 @@
 import { Box, Button, Modal, Paper } from "@mui/material";
-import PaginationTable from "./Table";
+import PaginationTable from "./MasonryContainer";
 import FileUpload from "./FileUpload";
 import { useState } from "react";
+
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function Dashboard() {
   // USE STATE
@@ -12,14 +14,28 @@ export default function Dashboard() {
 
   // RETURN
   return (
-    <Box padding={2} sx={{ display: "flex", flexDirection: "column" }}>
+    <Box
+      padding={2}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        // backgroundColor: "rgb(230, 144, 153)",
+      }}
+    >
       {/* FILE UPLOAD */}
       <Button
         variant="contained"
-        sx={{ alignSelf: "flex-end", mb: 2 }}
+        sx={{
+          alignSelf: "flex-end",
+          mb: 2,
+          backgroundColor: "rgb(224, 100, 146)",
+        }}
         onClick={handleOpen}
       >
         New Diary
+        <AddCircleIcon sx={{ ml: 1 }} />
       </Button>
       <Modal
         open={open}
@@ -28,13 +44,17 @@ export default function Dashboard() {
         aria-describedby="modal-modal-description"
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Box sx={{ width: "70lvw" }}>
+        <Box sx={{ width: "50lvw" }}>
           <Paper sx={{ p: 2 }}>
-            <FileUpload setIsNewEntry={setIsNewEntry} handleClose={handleClose} />
+            <FileUpload
+              setIsNewEntry={setIsNewEntry}
+              handleClose={handleClose}
+            />
           </Paper>
         </Box>
       </Modal>
 
+      {/* TABLE */}
       <PaginationTable isNewEntry={isNewEntry} />
     </Box>
   );

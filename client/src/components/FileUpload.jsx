@@ -31,7 +31,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
   const [imageURL, setImageURL] = useState(null);
 
   // USE EFFECT
-  // PREVIEW IMAGE
+  // preview image
   useEffect(() => {
     if (!fileUpload) {
       setPreviewImage(null);
@@ -59,7 +59,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
     handleClose();
   };
 
-  // UPLOAD FILE TO FIREBASE
+  // upload file to Firebase
   const uploadFile = async () => {
     if (!fileUpload) return;
     const diaryEntriesFolderRef = ref(
@@ -76,7 +76,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
     }
   };
 
-  // UPLOAD TO DATABASE
+  // upload to Database
   const uploadToDatabase = async () => {
     const response = await fetch(`${BASE_URL}/diaries`, {
       method: "POST",
@@ -97,8 +97,17 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
 
   // RETURN
   return (
-    <Box sx={{ width: "100%" }}>
-      <Typography variant="h6">New Diary</Typography>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+        New Diary
+      </Typography>
 
       {/* PREVIEW IMAGE */}
       {fileUpload ? (
@@ -109,22 +118,27 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
 
       {/* TEXT INPUT */}
       <TextField
-        id="outlined-basic"
+        id="title"
         label="title"
         variant="outlined"
         placeholder="Title"
         onChange={(e) => setTitle(e.target.value)}
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", mb: 1 }}
       />
-      <textarea
+      <TextField
+        id="description"
+        label="description"
+        variant="outlined"
         className="description"
         placeholder="Description"
         onChange={(e) => setDescription(e.target.value)}
       />
 
       {/* UPLOAD BUTTON */}
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <UploadButton setFileUpload={setFileUpload} />
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+      >
+        <UploadButton setFileUpload={setFileUpload} sx={{ margin: "4px" }} />
         <Button
           variant="outlined"
           component="label"
@@ -134,7 +148,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
             await uploadFile();
           }}
         >
-          Upload File
+          Create Diary
         </Button>
         {/* {imageList.map((url) => {
           return <img src={url} />;
