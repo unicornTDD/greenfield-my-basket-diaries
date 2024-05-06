@@ -60,7 +60,7 @@ module.exports = {
           const token = jwt.sign({ id: user }, process.env.SECRET, {
             expiresIn: "1h",
           });
-          res.json({ token });
+          res.status(200).json({ token, user });
         } else {
           res
             .status(401)

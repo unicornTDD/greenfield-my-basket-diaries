@@ -22,8 +22,16 @@ export default function PaginationTable({ isNewEntry }) {
 
   // HANDLERS FUNCTION
   const handleReadData = async () => {
-    const resp = await fetch(`${BASE_URL}/diaries`, { credentials: "include" });
-    const data = await resp.json();
+    const token = localStorage.getItem("jwtToken")
+    const response = await fetch(`${BASE_URL}/diaries/`, {
+      credentials: "include",
+      method: "GET",
+      headers: { 
+        "Content-Type": "application/json",   
+         'Authorization': `Bearer ${token}`,
+    },
+    });
+    const data = await response.json();
     const sortedDataDesc = data.sort((a, b) => {
       return b.diary_id - a.diary_id;
     });
@@ -32,10 +40,14 @@ export default function PaginationTable({ isNewEntry }) {
   };
 
   const handleDeleteDiary = async (diaryID) => {
+    const token = localStorage.getItem("jwtToken")
     await fetch(`${BASE_URL}/diaries/${diaryID}`, {
       credentials: "include",
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",   
+         'Authorization': `Bearer ${token}`,
+    },
     });
     handleReadData();
   };

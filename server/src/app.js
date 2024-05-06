@@ -4,8 +4,6 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "./.env" });
 
-// const cookieSession = require("cookie-session");
-
 const app = express();
 app.set("trust proxy", 1);
 
@@ -17,16 +15,6 @@ app.use(
   })
 );
 app.use(express.json());
-// app.use(
-//   cookieSession({
-//     name: "session",
-//     keys: [process.env.SECRET, process.env.FIRE_BASE],
-//     maxAge: 24 * 60 * 60 * 1000,
-//     secure: true,
-//     httpOnly: false,
-//     sameSite: "none",
-//   })
-// );
 
 //MVC CONTROLERS
 const diaryController = require("./diary/diary.controller");
@@ -45,8 +33,8 @@ app.delete("/diaries/:id", auth, diaryController.deleteDiary);
 
 //MIDDLEWARE FOR AUTHENTICATIONj
 function auth(req, res, next) {
+  //splitting the token value from the text in teh Header
   const token = req.headers.authorization?.split(" ")[1];
-  console.log(token);
   if (!token) return res.status(401).json({ message: "Access denied" });
 
   try {

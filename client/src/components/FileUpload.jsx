@@ -77,11 +77,13 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
 
   // upload to Database
   const uploadToDatabase = async () => {
+    const token = localStorage.getItem("jwtToken")
     const response = await fetch(`${BASE_URL}/diaries`, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
         userID: 1,
