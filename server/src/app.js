@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(
   cookieSession({
     name: "session",
-    keys: [process.env.SECRET], //ad to teh server env file
+    keys: [process.env.SECRET, process.env.FIRE_BASE], 
     maxAge: 24 * 60 * 60 * 1000,
     secure: true,
     httpOnly: false,
