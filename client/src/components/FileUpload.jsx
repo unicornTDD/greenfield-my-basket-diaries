@@ -3,7 +3,7 @@ import UploadButton from "./UploadButton";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const username = localStorage.getItem("userId")
+const username = localStorage.getItem("userId");
 const userID = Number(username);
 
 // FIREBASE
@@ -122,6 +122,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
       <TextField
         id="title"
         label="title"
+        required
         variant="outlined"
         placeholder="Title"
         onChange={(e) => setTitle(e.target.value)}
@@ -147,6 +148,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
           role={undefined}
           tabIndex={-1}
           onClick={async () => {
+            if (!title) alert("please insert title");
             await uploadFile();
           }}
         >
