@@ -26,11 +26,11 @@ app.post("/create_user", loginController.createUser);
 app.post("/verify_user", loginController.verifyUser);
 
 //DIARY ENDPOINTS
-app.get("/diaries", diaryController.getAll);
-app.get("/diaries/:userID", diaryController.getDiarybyUserID);
-app.post("/diaries", diaryController.createDiary);
-app.patch("/diaries/:id", diaryController.editDiary);
-app.delete("/diaries/:id", diaryController.deleteDiary);
+app.get("/diaries",auth, diaryController.getAll);
+app.get("/diaries/:userID",auth, diaryController.getDiarybyUserID);
+app.post("/diaries",auth, diaryController.createDiary);
+app.patch("/diaries/:id",auth, diaryController.editDiary);
+app.delete("/diaries/:id",auth, diaryController.deleteDiary);
 
 //MIDDLEWARE FOR AUTHENTICATIONj
 function auth(req, res, next) {
