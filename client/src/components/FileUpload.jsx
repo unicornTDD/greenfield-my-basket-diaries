@@ -69,7 +69,6 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
     try {
       const snapshot = await uploadBytes(diaryEntriesFolderRef, fileUpload);
       const firebaseURL = await getDownloadURL(snapshot.ref);
-      console.log("Download URL", firebaseURL);
       setImageURL(firebaseURL);
     } catch (err) {
       console.error("image upload error!", err);
@@ -91,8 +90,6 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
         imageURL: imageURL,
       }),
     });
-
-    console.log(response);
   };
 
   // RETURN

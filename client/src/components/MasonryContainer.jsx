@@ -27,7 +27,6 @@ export default function PaginationTable({ isNewEntry }) {
     const sortedDataDesc = data.sort((a, b) => {
       return b.diary_id - a.diary_id;
     });
-    console.log(sortedDataDesc);
     setEntries([...sortedDataDesc]);
   };
 
@@ -43,7 +42,6 @@ export default function PaginationTable({ isNewEntry }) {
   // HANDLERS FUNCTION
   const handleClose = () => setIsEdit(false);
   const handleEditDiary = async (diaryID) => {
-    console.log("send", editTitle, editDescription, editId);
     await fetch(`${BASE_URL}/diaries/${diaryID}`, {
       credentials: "include",
       method: "PATCH",
