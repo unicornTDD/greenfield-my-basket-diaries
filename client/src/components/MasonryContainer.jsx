@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-const username = localStorage.getItem("userId").toUpperCase();
+const username = localStorage.getItem("userId");
 
 // @MUI
 import MasonryGrid from "./MasonryGrid";
@@ -37,7 +37,6 @@ export default function PaginationTable({ isNewEntry }) {
     const sortedDataDesc = data.sort((a, b) => {
       return b.diary_id - a.diary_id;
     });
-
 
     setEntries([...sortedDataDesc]);
   };
@@ -87,7 +86,6 @@ export default function PaginationTable({ isNewEntry }) {
     } else {
       alert("you shall not edit");
     }
-
   };
 
   // RETURN

@@ -34,7 +34,9 @@ export default function MenuSimple() {
     navigate("/");
   };
 
-  const username = localStorage.getItem("userInitials").toUpperCase();
+  const username = localStorage.getItem("userInitials")
+    ? localStorage.getItem("userInitials").toUpperCase()
+    : "";
 
   // RETURN
   return (

@@ -19,7 +19,7 @@ import { Box, Button, Modal, TextField } from "@mui/material";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const username = localStorage.getItem("userInitials").toUpperCase();
+const username = localStorage.getItem("userInitials") ? localStorage.getItem("userInitials").toUpperCase() : ""
 
 export default function MasonryGrid({
   entries,

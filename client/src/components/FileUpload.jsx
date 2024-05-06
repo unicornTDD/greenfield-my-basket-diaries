@@ -3,7 +3,7 @@ import UploadButton from "./UploadButton";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const username = localStorage.getItem("userId").toUpperCase();
+const username = localStorage.getItem("userId")
 
 // FIREBASE
 import "./FileUpload.css";
