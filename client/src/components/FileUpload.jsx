@@ -149,7 +149,7 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
           tabIndex={-1}
           onClick={async () => {
             if (!title) alert("please insert title");
-            await uploadFile();
+            else await uploadFile();
           }}
         >
           Create Diary
