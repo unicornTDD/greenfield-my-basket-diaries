@@ -53,6 +53,10 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
     }
   }, [imageURL]);
 
+  useEffect(() => {
+    console.log("title", title);
+  }, [title]);
+
   // HANDLER FUCNTION
   const storage = getStorage();
 
@@ -148,8 +152,12 @@ export default function FileUpload({ setIsNewEntry, handleClose }) {
           role={undefined}
           tabIndex={-1}
           onClick={async () => {
-            if (!title) alert("please insert title");
-            else await uploadFile();
+            if (!title) {
+              alert("please insert title");
+            } else {
+              console.log("uploading...");
+              await uploadFile();
+            }
           }}
         >
           Create Diary
