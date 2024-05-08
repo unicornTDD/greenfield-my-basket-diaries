@@ -19,7 +19,6 @@ function App() {
   const [dashboardDisplaySetting, setDashboardDisplaySetting] = useState(DISPLAY_DASHBOARD);
 
   const handleDashboardRender = () => {
-    console.log(dashboardDisplaySetting);
     if (dashboardDisplaySetting === DISPLAY_DASHBOARD) return <Dashboard />;
     else return <UserDashboard/>
   };
